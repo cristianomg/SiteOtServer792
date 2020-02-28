@@ -11,6 +11,7 @@ using Teste.Models;
 
 namespace OTServer.UI.MVC.Controllers
 {
+    [ResponseCache(CacheProfileName = "Default30")]
     public class RankingController : BaseController
     {
 

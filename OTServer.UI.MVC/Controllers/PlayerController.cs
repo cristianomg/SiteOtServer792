@@ -9,6 +9,7 @@ using Teste.Models;
 
 namespace OTServer.UI.MVC.Controllers
 {
+    [ResponseCache(CacheProfileName = "Default30")]
     public class PlayerController : BaseController
     {
         public PlayerController(IMapper mapper) : base(mapper)
