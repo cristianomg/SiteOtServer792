@@ -51,5 +51,13 @@ namespace OTServer.UI.MVC.Controllers
             kills = kills.OrderByDescending(x => x.Time).Skip(page*10).Take(10).ToList();
             return PartialView(kills);
         }
+        [HttpGet]
+        public IActionResult CompleteName(string name)
+        {
+            var names = players.Where(x => x.Name.Contains(name)).Select(x=>x.Name).Take(5).ToList();
+
+            return Json(names)
+
+        }
     }
 }
