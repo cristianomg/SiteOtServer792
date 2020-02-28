@@ -20,11 +20,13 @@
                             string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
                             <tr style="@estilo">
                                 <td>
-                                    Matou @item.Name Level @item.Level em @item.Time
+                                    Matou @item.Name Level @item.Level em @{string tempo = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(item.Time).ToString("dd/MM/yyy hh:MM:ss").Replace(" ", " as ");} @tempo
                                 </td>
+
                                 <td></td>
-                            </tr>
-                            count++;
+
+                                </tr>
+                                count++;
                         }
                     }
                 </tbody>

@@ -6,3 +6,11 @@ D:\Area de trabalho\CSharp\server\OTServer.UI.MVC\OTServer.Domain\obj\Debug\netc
 D:\Area de trabalho\CSharp\server\OTServer.UI.MVC\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.AssemblyInfo.cs
 D:\Area de trabalho\CSharp\server\OTServer.UI.MVC\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.dll
 D:\Area de trabalho\CSharp\server\OTServer.UI.MVC\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.pdb
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\bin\Debug\netcoreapp3.1\OTServer.Domain.deps.json
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\bin\Debug\netcoreapp3.1\OTServer.Domain.dll
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\bin\Debug\netcoreapp3.1\OTServer.Domain.pdb
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.csprojAssemblyReference.cache
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.AssemblyInfoInputs.cache
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.AssemblyInfo.cs
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.dll
+C:\Users\cristiano\Desktop\projeto\SiteOtServer792\OTServer.Domain\obj\Debug\netcoreapp3.1\OTServer.Domain.pdb
