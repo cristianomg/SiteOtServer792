@@ -1,0 +1,51 @@
+﻿@model IEnumerable<OTServer.UI.MVC.Models.RankSkillViewModel>
+
+@{
+    ViewData["Title"] = "Skill";
+}
+
+<h1>@ViewBag.skillDs</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
+                <tr style="@estilo">
+                    <td class="col-6">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="col-6">
+                        @Html.DisplayFor(modelItem => item.Skill)
+                    </td>
+                    <td> 
+                    </td>
+
+                </tr>
+                count++;
+            }
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="@Url.Action("skill", "ranking", new { skill = ViewBag.skillId,  page = @ViewBag.page - 1 })">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("skill", "ranking", new { skill = ViewBag.skillId, page = 1 })">1</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("skill", "ranking", new { skill = ViewBag.skillId, page = 2 })">2</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("skill", "ranking", new { skill = ViewBag.skillId, page = 3 })">3</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("skill", "ranking", new { skill = ViewBag.skillId, page = @ViewBag.page + 1 })">Next</a></li>
+    </ul>
+</nav>

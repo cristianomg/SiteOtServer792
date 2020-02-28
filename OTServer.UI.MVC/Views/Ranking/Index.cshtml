@@ -1,0 +1,141 @@
+﻿@model IEnumerable<OTServer.UI.MVC.Models.RankingLevelViewModel>
+
+@{
+    ViewData["Title"] = "Level";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resets)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Exp)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
+                <tr style="@estilo">
+                    <td>
+                        <button class="btn btn-default details" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i>@Html.DisplayFor(modelItem => item.Name)</button>
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Level)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Resets)
+                    </td>
+                    <td>
+                        @{
+                            string result = "";
+                            var voc = item.Voc;
+                            switch (voc)
+                            {
+                                case "1":
+                                    result = "S";
+                                    break;
+                                case "2":
+                                    result = "D";
+                                    break;
+                                case "3":
+                                    result = "A";
+                                    break;
+                                case "4":
+                                    result = "K";
+                                    break;
+                                case "5":
+                                    result = "MS";
+                                    break;
+                                case "6":
+                                    result = "ED";
+                                    break;
+                                case "7":
+                                    result = "RA";
+                                    break;
+                                case "8":
+                                    result = "EK";
+                                    break;
+                                case "9":
+                                    result = "W";
+                                    break;
+                                case "10":
+                                    result = "C";
+                                    break;
+                                case "11":
+                                    result = "R";
+                                    break;
+                                case "12":
+                                    result = "SL";
+                                    break;
+                                case "13":
+                                    result = "DW";
+                                    break;
+                                case "14":
+                                    result = "EC";
+                                    break;
+                                case "15":
+                                    result = "ER";
+                                    break;
+                                case "16":
+                                    result = "DSL";
+                                    break;
+                            }
+                        }
+                        @result
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Exp)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="@Url.Action("index", "ranking", new { page = @ViewBag.page - 1 })">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("index", "ranking", new { page = 1 })">1</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("index", "ranking", new { page = 2 })">2</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("index", "ranking", new { page = 3 })">3</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("index", "ranking", new { page = @ViewBag.page + 1 })">Next</a></li>
+    </ul>
+</nav>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $(".details").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("Player/searchbyid?id=" + id, function () {
+                    $("#modal").modal("show");
+                })
+            });
+        })
+    </script>
+}
+

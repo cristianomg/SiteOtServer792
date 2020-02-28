@@ -1,0 +1,61 @@
+﻿@model IEnumerable<OTServer.UI.MVC.Models.RankFragsViewModel>
+
+@{
+    ViewData["Title"] = "Frags";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead style="background-color:blue; color:antiquewhite">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kills)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deaths)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Points)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
+                <tr style="@estilo">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Kills)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deaths)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Points)
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = @ViewBag.page - 1 })">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = 1 })">1</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = 2 })">2</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = 3 })">3</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = @ViewBag.page + 1 })">Next</a></li>
+    </ul>
+</nav>
