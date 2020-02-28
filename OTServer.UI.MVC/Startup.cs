@@ -66,6 +66,7 @@ namespace OTServer.UI.MVC
                 config.CreateMap<Player, RankingLevelViewModel>();
                 config.CreateMap<Player, PlayerSearchViewModel>();
                 config.CreateMap<PlayerSearchViewModel, Player>();
+
             });
 
             IMapper mapper = mapperConfiguration.CreateMapper();

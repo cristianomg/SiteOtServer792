@@ -74,22 +74,22 @@ namespace OTServer.UI.MVC.Controllers
             switch (skill)
             {
                 case 0:
-                    skillType = "FIST FIGHTING";
+                    skillType = "Fist Fighting";
                     break;
                 case 1:
-                    skillType = "CLUB FIGHTING";
+                    skillType = "Club Fighting";
                     break;
                 case 2:
-                    skillType = "SWORD FIGHTING";
+                    skillType = "Sword Fighting";
                     break;
                 case 3:
-                    skillType = "AXE FIGHTING";
+                    skillType = "Axe Fighting";
                     break;
                 case 4:
-                    skillType = "DISTANCE FIGHTING";
+                    skillType = "Distance Fighting";
                     break;
                 case 5:
-                    skillType = "SHIELDING";
+                    skillType = "Shielding";
                     break;
                 default:
                     return Redirect("/ranking");

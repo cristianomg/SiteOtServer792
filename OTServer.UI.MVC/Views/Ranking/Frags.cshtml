@@ -32,7 +32,7 @@
                 string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
                 <tr style="@estilo">
                     <td>
-                        @Html.DisplayFor(modelItem => item.Name)
+                        <button class="btn btn-default details" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i>@Html.DisplayFor(modelItem => item.Name)</button>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Kills)
@@ -52,10 +52,25 @@
 </table>
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = @ViewBag.page - 1 })">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = 1 })">1</a></li>
-        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = 2 })">2</a></li>
-        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = 3 })">3</a></li>
-        <li class="page-item"><a class="page-link" href="@Url.Action("RankingFrags", "ranking", new { page = @ViewBag.page + 1 })">Next</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("Frags", "ranking", new { page = @ViewBag.page - 1 })">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("Frags", "ranking", new { page = 1 })">1</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("Frags", "ranking", new { page = 2 })">2</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("Frags", "ranking", new { page = 3 })">3</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("Frags", "ranking", new { page = @ViewBag.page + 1 })">Next</a></li>
     </ul>
 </nav>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $(".details").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("Player/GetKillsPlayer?id=" + id, function () {
+                    $("#modal").modal("show");
+                })
+            });
+        })
+    </script>
+}

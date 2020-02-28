@@ -73,3 +73,7 @@ thead {
     background-color:blue;
     color:antiquewhite;
 }
+.pagination > li > a, .pagination > li > span {
+    border-radius: 60% !important;
+    margin: 0 5px;
+}

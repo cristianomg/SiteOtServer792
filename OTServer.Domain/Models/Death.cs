@@ -8,8 +8,8 @@ namespace Teste.Models
 		[XmlAttribute(AttributeName = "name")]
 		public string Name { get; set; }
 		[XmlAttribute(AttributeName = "level")]
-		public string Level { get; set; }
+		public int Level { get; set; }
 		[XmlAttribute(AttributeName = "time")]
-		public string Time { get; set; }
+		public long Time { get; set; }
 	}
 }

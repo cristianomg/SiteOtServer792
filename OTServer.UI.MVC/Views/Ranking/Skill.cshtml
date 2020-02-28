@@ -31,7 +31,7 @@
                     <td class="col-6">
                         @Html.DisplayFor(modelItem => item.Skill)
                     </td>
-                    <td> 
+                    <td>
                     </td>
 
                 </tr>
@@ -49,3 +49,16 @@
         <li class="page-item"><a class="page-link" href="@Url.Action("skill", "ranking", new { skill = ViewBag.skillId, page = @ViewBag.page + 1 })">Next</a></li>
     </ul>
 </nav>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+</div>
+@section scripts{
+    <script>$(function () {
+            $(".details").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("Player/searchbyid?id=" + id, function () {
+                    $("#modal").modal("show");
+                })
+            });
+        })</script>
+}
