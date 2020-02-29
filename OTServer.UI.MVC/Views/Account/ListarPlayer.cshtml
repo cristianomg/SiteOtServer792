@@ -1,0 +1,146 @@
+﻿@model IEnumerable<OTServer.UI.MVC.Models.DTOListaDePlayer>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Access)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resets)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lastlogin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
+            <tr style="@estilo">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @{
+                        var sexo = "";
+                        switch (item.Sex)
+                        {
+                            case "0":
+                                sexo = "Female";
+                                break;
+                            case "1":
+                                sexo = "Male";
+                                break;
+                            default:
+                                sexo = "Undefined";
+                                break;
+                        }
+                    }
+                    @sexo
+                </td>
+                <td>
+                    @{
+                        string result = "";
+                        var voc = item.Voc;
+                        switch (voc)
+                        {
+                            case "1":
+                                result = "Sorcerer";
+                                break;
+                            case "2":
+                                result = "Druid";
+                                break;
+                            case "3":
+                                result = "Archer";
+                                break;
+                            case "4":
+                                result = "Knight";
+                                break;
+                            case "5":
+                                result = "Master Sorcerer";
+                                break;
+                            case "6":
+                                result = "Elder Druid";
+                                break;
+                            case "7":
+                                result = "Royal Archer";
+                                break;
+                            case "8":
+                                result = "Elite Knight";
+                                break;
+                            case "9":
+                                result = "Wizard";
+                                break;
+                            case "10":
+                                result = "Cleric";
+                                break;
+                            case "11":
+                                result = "Ranger";
+                                break;
+                            case "12":
+                                result = "Slayer";
+                                break;
+                            case "13":
+                                result = "Dark Wizard";
+                                break;
+                            case "14":
+                                result = "Elemental Cleric";
+                                break;
+                            case "15":
+                                result = "Elven Ranger";
+                                break;
+                            case "16":
+                                result = "Dragon Slayer";
+                                break;
+                        }
+                    }
+                    @result
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @{
+                        var acesso = "";
+                        switch (item.Access)
+                        {
+                            case 0:
+                                acesso = "Player";
+                                break;
+                            default:
+                                acesso = "Undefined";
+                                break;
+                        }
+                    }
+                    @acesso
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Resets)
+                </td>
+                <td>
+                    @{string tempo = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Convert.ToDouble(item.Lastlogin)).ToString("dd/MM/yyy hh:MM:ss").Replace(" ", " as ");} @tempo
+                </td>
+                <td></td>
+            </tr>
+            }
+            count++;
+        }
+    </tbody>
+</table>

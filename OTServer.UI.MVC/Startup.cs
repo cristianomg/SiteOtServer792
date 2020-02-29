@@ -38,6 +38,8 @@ namespace OTServer.UI.MVC
                         Duration = 30
                     });
             });
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +79,9 @@ namespace OTServer.UI.MVC
                 config.CreateMap<DTOAccountLogin, Account>();
                 config.CreateMap<DTOPainelAccount, Account>();
 
+
                 //Player
+                config.CreateMap<Player, DTOListaDePlayer>();
                 config.CreateMap<Player, DTOKills>();
                 config.CreateMap<Player, DTOPlayerSearch>();
                 config.CreateMap<Player, DTORankingLevel>();
@@ -90,6 +94,7 @@ namespace OTServer.UI.MVC
                 config.CreateMap<DTORankFrags, Player>();
                 config.CreateMap<DTORankMagic, Player>();
                 config.CreateMap<DTORankSkill, Player>();
+                config.CreateMap<DTOListaDePlayer, Player>();
 
 
 

@@ -57,14 +57,55 @@ namespace OTServer.UI.MVC.Controllers
                 TempData.Remove("Account");
                 TempData.Remove("Pass");
                 TempData.Remove("LoginAceito");
-                ViewData["FalhaLogin"] = "Login não encontrado";
+                ViewData["ErroMessage"] = "Login não encontrado";
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception e)
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        [HttpGet]
+        [Route("ListarPlayer")]
+        public IActionResult ListarPlayer(string account, string senha)
+        {
+            string login = TempData["Account"] as String;
+            string pass = TempData["Pass"] as String;
+            string aceito = TempData["LoginAceito"] as String;
+            if (login == account && pass == senha && aceito == "loginAceito")
+            {
+                var listaPlayers = players.Where(x => x.Account == account).OrderBy(x=>x.Name).ToList();
 
+                if (listaPlayers.Any())
+                {
+                    TempData.Keep("Account");
+                    TempData.Keep("Pass");
+                    TempData.Keep("LoginAceito");
+                    var playerDTO = _mapper.Map<IEnumerable<DTOListaDePlayer>>(listaPlayers);
+                    return PartialView(playerDTO);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                TempData.Remove("Account");
+                TempData.Remove("Pass");
+                TempData.Remove("LoginAceito");
+                ViewData["ErroMessage"] = "Login não encontrado";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpGet]
+        [Route("Logout")]
+        public IActionResult RealizarLogout()
+        {
+            TempData.Remove("Account");
+            TempData.Remove("Pass");
+            TempData.Remove("LoginAceito");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

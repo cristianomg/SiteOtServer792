@@ -4,38 +4,97 @@
     ViewData["Title"] = "Painel";
 }
 
-<h1>Painel</h1>
+<div class="panel panel-primary">
+    <div class="panel-heading bg-primary col-sm-12  text-light p-2 text-center">MINHA ACCOUNT:</div>
+    <div class="panel-body">
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-12">
+                <h2>Opções</h2>
+                <hr />
+            </dt>
+            <div class="col-12">
+                <button class="btn btn-success"> Criar Personagem </button>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-info"> Mudar Senha</button>
+                <br />
+            </div>
+            <div class="col-12">
+                <a class="btn btn-danger my-2 my-sm-0" href="@Url.Action("RealizarLogout", "Account")">Sair</a>
+                <br />
+            </div>
+            <div class="pb-5">
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccountNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccountNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RecoveryKey)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RecoveryKey)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pass)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pass)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PremDays)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PremDays)
-        </dd>
-    </dl>
+            </div>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PremDays)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PremDays)
+            </dd>
+            <div class="pt-3 justify-content-center ml-3 text-dark mr-2">
+                <b><p>Este é o seu número da Recovery Key, o anote em algum lugar seguro, depois de anotado, será melhor você apagar ele daqui (depois de apagado não poderá mais ser visualizado por aqui).</p></b>
+                <div class="text-center">
+                    <b>@Html.DisplayNameFor(model => model.RecoveryKey) @Html.DisplayFor(model => model.RecoveryKey)</b>
+                    <br />
+                    <b class="text-center">Apagar Recovey Key: </b> <button class="btn btn-default details text-primary"> Sim </button>
+                </div>
+            </div>
+        </dl>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+<div class="panel panel-primary">
+    <div class="panel-heading bg-primary col-sm-12  text-light p-2 text-center">Informações Pessoais: </div>
+    <div class="panel-body">
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2 pb-1">
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd class="col-sm-10 pb-1">
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt class="col-sm-2 pb-1">
+                @Html.DisplayNameFor(model => model.Localização)
+            </dt>
+            <dd class="col-sm-10 pb-1">
+                @Html.DisplayFor(model => model.Localização)
+            </dd>
+            <dt class="col-sm-2 pb-1">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10 pb-1">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
 </div>
+<input type="hidden" id="login" value="@Model.AccountNumber">
+<input type="hidden" id="senha" value="@Model.Pass">
+
+<div class="panel panel-primary">
+    <div class="panel-heading bg-primary col-sm-12  text-light p-2 text-center">INFORMAÇÕES DO PERSONAGEM: </div>
+    <div class="panel-body">
+        <hr />
+        <div class="d-flex justify-content-center">
+            <div class="spinner-grow text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="listaPlayer" id="listaPlayer">
+
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            var login = $("#login").val();
+            var senha = $("#senha").val();
+            $("#listaPlayer").load("ListarPlayer?account=" + login + "&senha=" + senha, function () {
+                $(".spinner-grow").hide();
+        })
+        })
+    </script>
+}
