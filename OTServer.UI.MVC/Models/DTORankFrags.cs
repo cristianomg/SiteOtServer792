@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OTServer.UI.MVC.Models
 {
-    public class RankFragsViewModel
+    public class DTORankFrags
     {
         public int Id { get; set; }
         [Display(Name="Nome")]

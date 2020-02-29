@@ -71,10 +71,28 @@ namespace OTServer.UI.MVC
         {
             var mapperConfiguration = new MapperConfiguration(config =>
             {
-                config.CreateMap<RankingLevelViewModel, Player>();
-                config.CreateMap<Player, RankingLevelViewModel>();
-                config.CreateMap<Player, PlayerSearchViewModel>();
-                config.CreateMap<PlayerSearchViewModel, Player>();
+                //Account
+                config.CreateMap<Account, DTOAccountLogin>();
+                config.CreateMap<Account, DTOPainelAccount>();
+                config.CreateMap<DTOAccountLogin, Account>();
+                config.CreateMap<DTOPainelAccount, Account>();
+
+                //Player
+                config.CreateMap<Player, DTOKills>();
+                config.CreateMap<Player, DTOPlayerSearch>();
+                config.CreateMap<Player, DTORankingLevel>();
+                config.CreateMap<Player, DTORankFrags>();
+                config.CreateMap<Player, DTORankMagic>();
+                config.CreateMap<Player, DTORankSkill>();
+                config.CreateMap<DTOKills, Player>();
+                config.CreateMap<DTOPlayerSearch, Player>();
+                config.CreateMap<DTORankingLevel, Player>();
+                config.CreateMap<DTORankFrags, Player>();
+                config.CreateMap<DTORankMagic, Player>();
+                config.CreateMap<DTORankSkill, Player>();
+
+
+
 
             });
 

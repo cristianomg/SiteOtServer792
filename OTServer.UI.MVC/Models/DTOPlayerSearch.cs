@@ -6,7 +6,7 @@ using Teste.Models;
 
 namespace OTServer.UI.MVC.Models
 {
-    public class PlayerSearchViewModel
+    public class DTOPlayerSearch
     {
         public int Id { get; set; }
         public string Name { get; set; }

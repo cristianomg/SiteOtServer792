@@ -58,6 +58,7 @@ html {
   min-height: 100%;
 }
 
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
@@ -76,4 +77,8 @@ thead {
 .pagination > li > a, .pagination > li > span {
     border-radius: 60% !important;
     margin: 0 5px;
+}
+
+.body-context {
+    min-height: 850px;
 }

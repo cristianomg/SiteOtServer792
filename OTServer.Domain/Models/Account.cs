@@ -8,6 +8,7 @@ namespace Teste.Models
 	[XmlRoot(ElementName = "account")]
 	public class Account
 	{
+		public string AccountNumber { get; set; }
 		[XmlElement(ElementName = "characters")]
 		public Characters Characters { get; set; }
 		[XmlAttribute(AttributeName = "pass")]

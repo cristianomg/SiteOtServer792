@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OTServer.UI.MVC.Models
 {
-    public class RankingLevelViewModel
+    public class DTORankingLevel
     {
         public int Id { get; set; }
         [Display(Name = "Nome", Description = "Nome")]

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OTServer.UI.MVC.Models
 {
-    public class RankSkillViewModel
+    public class DTORankSkill
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -14,6 +14,8 @@ namespace OTServer.UI.MVC.Controllers
     public class BaseController : Controller
     {
         protected List<Player> players = new List<Player>();
+        protected List<Account> accounts = new List<Account>();
+
         protected IMapper _mapper;
 
         public BaseController(IMapper mapper)
@@ -22,11 +24,14 @@ namespace OTServer.UI.MVC.Controllers
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json").Build();
             _mapper = mapper;
-            var diretorio = config.GetConnectionString("CaminhoPlayers");
-            players = LerArquivos(diretorio);
+            var diretorioPlayer = config.GetConnectionString("CaminhoPlayers");
+            var diretorioAccounts = config.GetConnectionString("CaminhoAccounts");
+
+            players = LerArquivosPlayer(diretorioPlayer);
+            accounts = LerArquivosAccount(diretorioAccounts);
         }
 
-        private List<Player> LerArquivos(string diretorio)
+        private List<Player> LerArquivosPlayer(string diretorio)
         {
             string[] arquivos = Directory.GetFiles(diretorio);
             var serializer = new XmlSerializer(typeof(Player));
@@ -54,5 +59,32 @@ namespace OTServer.UI.MVC.Controllers
             return players;
         }
 
+        private List<Account> LerArquivosAccount(string diretorio)
+        {
+            string[] arquivos = Directory.GetFiles(diretorio);
+            var serializer = new XmlSerializer(typeof(Account));
+            var account = new Account();
+            List<Account> accounts = new List<Account>();
+            int count = 1;
+            foreach (var item in arquivos)
+            {
+                var localArquivo = item;
+                try
+                {
+                    using (var textReader = new StreamReader(localArquivo))
+                    {
+                        account = (Account)serializer.Deserialize(textReader);
+                        account.AccountNumber = item.Split("\\").Last().Split(".").First();
+                    }
+                    accounts.Add(account);
+                    count++;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine(localArquivo);
+                }
+            }
+            return accounts;
+        }
     }
 }

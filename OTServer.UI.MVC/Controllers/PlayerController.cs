@@ -21,7 +21,7 @@ namespace OTServer.UI.MVC.Controllers
         public IActionResult SearchById(int id)
         {
             var player = players.Where(x => x.Id == id).FirstOrDefault();
-            var playerDto = _mapper.Map<PlayerSearchViewModel>(player);
+            var playerDto = _mapper.Map<DTOPlayerSearch>(player);
             return PartialView(playerDto);
         }
 
@@ -30,8 +30,9 @@ namespace OTServer.UI.MVC.Controllers
         {
             ViewBag.page = page;
             var nomePlayer = players.Where(x=>x.Id == id).First().Name;
-            List<KillsViewModel> kills = new List<KillsViewModel>();
+            List<DTOKills> kills = new List<DTOKills>();
             var listaMortes = (from player in players
+                               where player.Deaths.Death.Any()
                                select
                                new
                                {
@@ -41,7 +42,7 @@ namespace OTServer.UI.MVC.Controllers
             .Where(x => x.mortes.Any())
             .ToList();
 
-            listaMortes.ForEach(x => x.mortes.ForEach(y => kills.Add( new KillsViewModel
+            listaMortes.ForEach(x => x.mortes.ForEach(y => kills.Add( new DTOKills
             {
                 Name = x.playerName,
                 Level = y.Level,
@@ -52,11 +53,26 @@ namespace OTServer.UI.MVC.Controllers
             return PartialView(kills);
         }
         [HttpGet]
-        public IActionResult CompleteName(string name)
+        public IActionResult SearchByName(string name)
         {
-            var names = players.Where(x => x.Name.Contains(name)).Select(x=>x.Name).Take(5).ToList();
-
-            return Json(names)
+            try
+            {
+                if (!String.IsNullOrEmpty(name))
+                {
+                    var player = players.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+                    if (player == null)
+                    {
+                        return BadRequest();
+                    }
+                    var playerDto = _mapper.Map<DTOPlayerSearch>(player);
+                    return PartialView(playerDto);
+                }
+                return BadRequest();
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
         }
     }

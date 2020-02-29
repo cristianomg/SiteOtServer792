@@ -26,7 +26,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.page = page > 0 ? page : 0;
 
             var ordenado = players.OrderByDescending(x => x.Resets).ThenByDescending(x => x.Level).ThenByDescending(x => x.Exp).ThenBy(x => x.Name).Skip(page * 10).Take(10);
-            var viewModel = _mapper.Map<List<RankingLevelViewModel>>(ordenado);
+            var viewModel = _mapper.Map<List<DTORankingLevel>>(ordenado);
             return View(viewModel);
         }
         [HttpGet]
@@ -35,7 +35,7 @@ namespace OTServer.UI.MVC.Controllers
         {
             ViewBag.page = page > 0 ? page : 0;
             var r = (from player in players
-                     select new RankFragsViewModel
+                     select new DTORankFrags
                      {
                          Id = player.Id,
                          Name = player.Name,
@@ -56,7 +56,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.page = page > 0 ? page : 0;
 
             var result = (from player in players
-                          select new RankMagicViewModel
+                          select new DTORankMagic
                           {
                               Id = player.Id,
                               Name = player.Name,
@@ -100,7 +100,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.skillId = skill;
 
             var result = (from player in players
-                          select new RankSkillViewModel
+                          select new DTORankSkill
                           {
                               Id = player.Id,
                               Name = player.Name,

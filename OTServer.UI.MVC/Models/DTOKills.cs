@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OTServer.UI.MVC.Models
 {
-    public class KillsViewModel
+    public class DTOKills
     {
         public string Name { get; set; }
         public int Level { get; set; }

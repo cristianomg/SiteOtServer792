@@ -6,6 +6,9 @@
     <title>@ViewData["Title"] - OTServer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/search.css" />
+
+
     <link rel="shortcut icon" href="~/img/logo4.ico" />
 </head>
 <body style="background-color:#D0F0FF">
@@ -36,8 +39,8 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container col-8">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OTServer</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -68,22 +71,70 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+            <div class="form-inline my-0 my-lg-0 col-3">
+                <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success my-2 my-sm-0 search" type="submit">Search</button>
+            </div>
+            @{
+                var loginAceito = TempData["LoginAceito"];
+                if (loginAceito != null && loginAceito.Equals("loginAceito"))
+                {
+                     <a class="btn btn-danger my-2 my-sm-0 painel" href="@Url.ActionLink("Painel", "Account")">Painel</a>
+                }
+                else
+                {
+                    <button class="btn btn-danger  my-2 my-sm-0 login">Login</button>
+                }
+                    TempData.Keep("LoginAceito");
+                }
+
+            </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-5">
+        <main role="main" class="h-100 p-5 body-context">
             @RenderBody()
         </main>
     </div>
 
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    </div>
+
+    <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+    </div>
+
     <footer class="border-top footer text-light bg-primary">
-        <div class="container" >
+        <div class="container">
             &copy; 2020 - OTServer - <a asp-area="" asp-controller="Home" asp-action="Privacy" text-light style="color:antiquewhite">Privacy</a>
         </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+        $(function () {
+            $(".search").click(function () {
+                var name = $(".search-input").val();
+                $("#modal").load("Player/searchByName?name=" + name.replace(" ", "%20"), function (response, status, xhr) {
+                    console.log(status)
+                    if (status === "success") {
+                        $("#modal").modal("show");
+                    }
+                })
+            });
+        })
+        $(function () {
+            $(".login").click(function () {
+                $("#modal-login").load("Login" , function () {
+                    $("#modal-login").modal("show");
+                })
+            });
+        })
+
+    </script>
+
 </body>
 </html>
