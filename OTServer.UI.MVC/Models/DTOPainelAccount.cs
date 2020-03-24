@@ -19,8 +19,9 @@ namespace OTServer.UI.MVC.Models
         [DisplayName("Personagens: ")]
         public Characters Characters { get; set; }
         public string Nome { get; set; }
-        public string Localização { get; set; }
+        public string Localizacao { get; set; }
         public string Email { get; set; }
+        public bool VisibleRk { get; set; }
 
     }
 }

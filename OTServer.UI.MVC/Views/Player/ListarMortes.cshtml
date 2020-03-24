@@ -1,0 +1,80 @@
+﻿@model IEnumerable<OTServer.UI.MVC.Models.DTOMortes>
+
+@{
+    ViewData["Title"] = "Ultimas Mortes:";
+}
+
+<h1>@ViewData["Title"] </h1>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Player)
+            </th>
+            <th>
+                Mortes:
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+
+                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
+                <tr style="@estilo">
+                    <td>
+                        <button class="btn btn-default details" data-id="@item.Player"><i class="glyphicon glyphicon-file"></i>@Html.DisplayFor(modelItem => item.Player)</button>
+                    </td>
+                    <td>
+                        <div class="btn btn-default details">
+                            Morreu no level @item.Level por @item.PlayerQueMatou em  @{string tempo = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(item.Time).ToString("dd/MM/yyy hh:MM:ss").Replace(" ", " as ");} (@tempo).
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="@Url.Action("ListarMortes", "player", new { page = @ViewBag.page - 1 })">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("ListarMortes", "player", new { page = 1 })">1</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("ListarMortes", "player", new { page = 2 })">2</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("ListarMortes", "player", new { page = 3 })">3</a></li>
+        <li class="page-item"><a class="page-link" href="@Url.Action("ListarMortes", "player", new { page = @ViewBag.page + 1 })">Next</a></li>
+    </ul>
+</nav>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            $(".details").click(function () {
+                var name = $(this).attr("data-id");
+                $("#modal").load("Player/searchByName?name=" + name.replace(" ", "%20"), function (response, status, xhr) {
+                    console.log(status)
+                    if (status === "success") {
+                        $("#modal").modal("show");
+                    }
+                })
+            });
+        })
+    </script>
+}

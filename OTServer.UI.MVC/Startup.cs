@@ -28,6 +28,10 @@ namespace OTServer.UI.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IISOptions>(o =>
+            {
+                o.ForwardClientCertificate = false;
+            });
             services.AddControllersWithViews();
             AutoMapperConfig(services);
             services.AddMvc(options =>
@@ -76,8 +80,11 @@ namespace OTServer.UI.MVC
                 //Account
                 config.CreateMap<Account, DTOAccountLogin>();
                 config.CreateMap<Account, DTOPainelAccount>();
+                config.CreateMap<DTOCreateAccount, Account>();
                 config.CreateMap<DTOAccountLogin, Account>();
                 config.CreateMap<DTOPainelAccount, Account>();
+                config.CreateMap<DTOCreateAccount, Account>();
+
 
 
                 //Player

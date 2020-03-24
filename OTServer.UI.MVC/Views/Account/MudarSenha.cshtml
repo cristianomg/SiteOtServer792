@@ -1,0 +1,42 @@
+﻿@model OTServer.UI.MVC.Models.DTOMudarSenha
+
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <form asp-action="MudarSenha">
+                <h4 class="text-center text-info">Mudar Senha</h4>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SenhaAtual" class="control-label text-info"></label>
+                    <input asp-for="SenhaAtual" class="form-control" required />
+                    <span asp-validation-for="SenhaAtual" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SenhaNova" class="control-label text-info"></label>
+                    <input asp-for="SenhaNova" class="form-control" required />
+                    <span asp-validation-for="SenhaNova" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SenhaNovaConfirmacao" class="control-label text-info"></label>
+                    <input asp-for="SenhaNovaConfirmacao" class="form-control" required />
+                    <span asp-validation-for="SenhaNovaConfirmacao" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RecoveryKey" class="control-label text-info"></label>
+                    <input asp-for="RecoveryKey" class="form-control" required />
+                    <span asp-validation-for="RecoveryKey" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Mudar Senha" class="btn btn-primary btn-block" />
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

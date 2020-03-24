@@ -29,7 +29,7 @@ namespace OTServer.UI.MVC.Controllers
         public IActionResult GetKillsPlayer(int id, int page = 0)
         {
             ViewBag.page = page;
-            var nomePlayer = players.Where(x=>x.Id == id).First().Name;
+            var nomePlayer = players.Where(x => x.Id == id).First().Name;
             List<DTOKills> kills = new List<DTOKills>();
             var listaMortes = (from player in players
                                where player.Deaths.Death.Any()
@@ -42,14 +42,14 @@ namespace OTServer.UI.MVC.Controllers
             .Where(x => x.mortes.Any())
             .ToList();
 
-            listaMortes.ForEach(x => x.mortes.ForEach(y => kills.Add( new DTOKills
+            listaMortes.ForEach(x => x.mortes.ForEach(y => kills.Add(new DTOKills
             {
                 Name = x.playerName,
                 Level = y.Level,
                 Time = y.Time
             })));
 
-            kills = kills.OrderByDescending(x => x.Time).Skip(page*10).Take(10).ToList();
+            kills = kills.OrderByDescending(x => x.Time).Skip(page * 10).Take(10).ToList();
             return PartialView(kills);
         }
         [HttpGet]
@@ -65,7 +65,7 @@ namespace OTServer.UI.MVC.Controllers
                         return BadRequest();
                     }
                     var playerDto = _mapper.Map<DTOPlayerSearch>(player);
-                    return PartialView(playerDto);
+                    return PartialView("SearchById", playerDto);
                 }
                 return BadRequest();
             }
@@ -74,6 +74,41 @@ namespace OTServer.UI.MVC.Controllers
                 return BadRequest();
             }
 
+        }
+        [HttpGet]
+        [Route("ListaMortes")]
+        public IActionResult ListarMortes(int page)
+        {
+            try
+            {
+                @ViewBag.page = page;
+                var varListaMortes = (from player in players
+                                      where player.Deaths.Death.Any()
+                                      select new
+                                      {
+                                          mortes = player.Deaths.Death.ToList(),
+                                          playerMorto = player
+                                      }).ToList();
+
+                List<DTOMortes> listaMortes = new List<DTOMortes>();
+                varListaMortes.ForEach(x => x.mortes.ForEach(y => listaMortes.Add(new DTOMortes
+                {
+                    Player = x.playerMorto.Name,
+                    Level = y.Level,
+                    Time = y.Time,
+                    PlayerQueMatou = y.Name
+
+                })));
+
+                listaMortes = listaMortes.OrderByDescending(x => x.Time).Skip(page * 10).Take(10).ToList();
+
+                return View(listaMortes);
+            }
+            catch
+            {
+                return BadRequest();
+
+            }
         }
     }
 }

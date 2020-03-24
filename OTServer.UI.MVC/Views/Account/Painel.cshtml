@@ -6,6 +6,15 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading bg-primary col-sm-12  text-light p-2 text-center">MINHA ACCOUNT:</div>
+    @{
+        var result = TempData["ResultadoMudancaoSenha"] as String;
+        if (result != null)
+        {
+            <div class="alert alert-primary" role="alert">
+                @result
+            </div>
+        }
+    }
     <div class="panel-body">
         <hr />
         <dl class="row">
@@ -17,7 +26,7 @@
                 <button class="btn btn-success"> Criar Personagem </button>
             </div>
             <div class="col-12">
-                <button class="btn btn-info"> Mudar Senha</button>
+                <button class="btn btn-info mudarSenha"> Mudar Senha</button>
                 <br />
             </div>
             <div class="col-12">
@@ -33,14 +42,20 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.PremDays)
             </dd>
-            <div class="pt-3 justify-content-center ml-3 text-dark mr-2">
-                <b><p>Este é o seu número da Recovery Key, o anote em algum lugar seguro, depois de anotado, será melhor você apagar ele daqui (depois de apagado não poderá mais ser visualizado por aqui).</p></b>
-                <div class="text-center">
-                    <b>@Html.DisplayNameFor(model => model.RecoveryKey) @Html.DisplayFor(model => model.RecoveryKey)</b>
-                    <br />
-                    <b class="text-center">Apagar Recovey Key: </b> <button class="btn btn-default details text-primary"> Sim </button>
-                </div>
-            </div>
+            @{
+                if (Model.VisibleRk == true)
+                {
+                    <div class="pt-3 justify-content-center ml-3 text-dark mr-2">
+                        <b><p>Este é o seu número da Recovery Key, o anote em algum lugar seguro, depois de anotado, será melhor você apagar ele daqui (depois de apagado não poderá mais ser visualizado por aqui).</p></b>
+                        <div class="text-center">
+                            <b>@Html.DisplayNameFor(model => model.RecoveryKey) @Html.DisplayFor(model => model.RecoveryKey)</b>
+                            <br />
+                            <b class="text-center">Apagar Recovey Key: </b> <a class="btn btn-default details text-primary" href="@Url.Action("InibirRecoveryKey", "Account")"> Sim </a>
+                        </div>
+                    </div>
+                }
+            }
+
         </dl>
     </div>
 </div>
@@ -56,10 +71,10 @@
                 @Html.DisplayFor(model => model.Nome)
             </dd>
             <dt class="col-sm-2 pb-1">
-                @Html.DisplayNameFor(model => model.Localização)
+                @Html.DisplayNameFor(model => model.Localizacao)
             </dt>
             <dd class="col-sm-10 pb-1">
-                @Html.DisplayFor(model => model.Localização)
+                @Html.DisplayFor(model => model.Localizacao)
             </dd>
             <dt class="col-sm-2 pb-1">
                 @Html.DisplayNameFor(model => model.Email)
@@ -84,17 +99,37 @@
         </div>
     </div>
     <div class="listaPlayer" id="listaPlayer">
-
+        <div class="error-ajax justify-content-center text-center" style="display:none"><h3>Nenhum personagem criado.</h3></div>
     </div>
+</div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+
 </div>
 @section scripts{
     <script>
         $(document).ready(function () {
             var login = $("#login").val();
             var senha = $("#senha").val();
-            $("#listaPlayer").load("ListarPlayer?account=" + login + "&senha=" + senha, function () {
+            $("#listaPlayer").load("ListarPlayer?account=" + login + "&senha=" + senha, function (responseText, textStatus, req) {
                 $(".spinner-grow").hide();
+                if (textStatus === "error") {
+                    $(".error-ajax").css("display", "block");
+                    console.log("teste");
+                }
+            })
         })
+        $(document).ready(function () {
+            setTimeout(function () {
+                $(".alert").remove();
+            }, 10000);
+        }
+        );
+        $(function () {
+            $(".mudarSenha").click(function () {
+                $("#modal").load("MudarSenha", function () {
+                    $("#modal").modal("show");
+                })
+            });
         })
     </script>
 }

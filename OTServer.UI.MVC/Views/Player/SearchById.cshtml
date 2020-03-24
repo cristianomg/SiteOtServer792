@@ -1,4 +1,5 @@
 ﻿@model OTServer.UI.MVC.Models.DTOPlayerSearch
+@using System.Globalization;
 
 
 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -115,6 +116,28 @@
                     </div>
                 </dd>
             </dl>
+            <hr />
+            <h5 class="tab-pane" id="exampleModalLongTitle">Ultimas Mortes: </h5>
+            <table class="table">
+                <tbody>
+                    @{
+                        int count = 0;
+
+                        var listaMortes = Model.Deaths.Death.OrderByDescending(x => x.Time).Take(5).ToList();
+                        TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+                        foreach (var item in listaMortes)
+                        {
+                            string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
+                            <tr style="@estilo" class="col-12">
+                                <td>
+                                    Morreu no Level @item.Level por @item.Name em @{string tempo = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(item.Time).ToString("d MMM yyyy"); tempo = ti.ToTitleCase(tempo);}@tempo.Replace(" ", " de ")
+                                </td>
+                            </tr>
+                            count++;
+                        }
+                    }
+                </tbody>
+            </table>
 
         </div>
         <div class="modal-footer">

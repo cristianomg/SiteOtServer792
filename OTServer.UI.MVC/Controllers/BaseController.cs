@@ -17,18 +17,19 @@ namespace OTServer.UI.MVC.Controllers
         protected List<Account> accounts = new List<Account>();
 
         protected IMapper _mapper;
-
+        private readonly string diretorioPlayer;
+        private readonly string diretorioAccounts;
         public BaseController(IMapper mapper)
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json").Build();
             _mapper = mapper;
-            var diretorioPlayer = config.GetConnectionString("CaminhoPlayers");
-            var diretorioAccounts = config.GetConnectionString("CaminhoAccounts");
+            diretorioPlayer = config.GetConnectionString("CaminhoPlayers");
+            diretorioAccounts = config.GetConnectionString("CaminhoAccounts");
 
-            players = LerArquivosPlayer(diretorioPlayer);
-            accounts = LerArquivosAccount(diretorioAccounts);
+            players = LerArquivosPlayer(this.diretorioPlayer);
+            accounts = LerArquivosAccount(this.diretorioAccounts);
         }
 
         private List<Player> LerArquivosPlayer(string diretorio)
@@ -85,6 +86,47 @@ namespace OTServer.UI.MVC.Controllers
                 }
             }
             return accounts;
+        }
+        protected bool AtualizarAccount(Account account)
+        {
+            var arquivo = $"{this.diretorioAccounts}\\{account.AccountNumber}.xml";
+            try
+            {
+                if (System.IO.File.Exists(arquivo))
+                {
+                    Console.WriteLine("tEste");
+                    System.IO.File.Delete(arquivo);
+                }
+                System.Xml.Serialization.XmlSerializer serializer = new XmlSerializer(typeof(Account));
+                TextWriter writer = new StreamWriter(arquivo);
+                serializer.Serialize(writer, account);
+                writer.Close();
+                return true;
+            }
+            catch (Exception )
+            {
+                return false;
+            }
+        }
+        protected bool CriarAccount(Account account)
+        {
+            try
+            {
+                var arquivo = $"{this.diretorioAccounts}\\{account.AccountNumber}.xml";
+                if (System.IO.File.Exists(arquivo))
+                {
+                    return false;
+                }
+                System.Xml.Serialization.XmlSerializer serializer = new XmlSerializer(typeof(Account));
+                TextWriter writer = new StreamWriter(arquivo);
+                serializer.Serialize(writer, account);
+                writer.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

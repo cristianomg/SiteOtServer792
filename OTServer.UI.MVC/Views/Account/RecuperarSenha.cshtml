@@ -1,0 +1,87 @@
+﻿@model OTServer.UI.MVC.Models.DTORecuperarSenha
+
+@{
+    ViewData["Title"] = "RecuperarSenha";
+}
+
+<link rel="stylesheet" href="~/css/registro.css" />
+
+@{
+    var result = TempData["ResultadoRecuperacaoSenha"] as String;
+    if (result != null)
+    {
+        if (result.Contains("tente novamente"))
+        {
+            <div class="alert alert-danger" role="alert">
+                @result
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-success" role="alert">
+                @result
+            </div>
+        }
+
+    }
+}
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="form-control-file">
+            <form asp-action="RecuperarSenha">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-sm-12 mb-4 justify-content-center text-center">
+                        <h1>Recuperar Senha</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="inputBox ">
+                            <div class="inputText">Account</div>
+                            <input asp-for="AccountNumber" class="input" required></input>
+                            <span asp-validation-for="AccountNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="inputBox">
+                            <div class="inputText">RecoveryKey</div>
+                            <input asp-for="RecoveryKey" class="input" required></input>
+                            <span asp-validation-for="RecoveryKey" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="inputBox">
+                            <div class="inputText">Email</div>
+                            <input asp-for="Email" class="input" required></input>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="submit" name="" class="button" value="Recuperar senha">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".input").val("");
+        });
+        $(".input").focus(function () {
+            $(this).parent().addClass("focus");
+        })</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

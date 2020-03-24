@@ -1,0 +1,33 @@
+﻿@model OTServer.UI.MVC.Models.DTODeletarPersonagem
+
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <form asp-action="DeletarPersonagem">
+                <h4 class="text-center text-info">Deletar Personagem</h4>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label text-info"></label>
+                    <input asp-for="Senha" class="form-control" required />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RecoveryKey" class="control-label text-info"></label>
+                    <input asp-for="RecoveryKey" class="form-control" required />
+                    <span asp-validation-for="RecoveryKey" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Deletar Personagem" class="btn btn-primary btn-block" />
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

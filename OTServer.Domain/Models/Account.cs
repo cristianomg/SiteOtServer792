@@ -17,5 +17,15 @@ namespace Teste.Models
 		public string PremDays { get; set; }
 		[XmlAttribute(AttributeName = "premEnd")]
 		public string PremEnd { get; set; }
+		[XmlAttribute(AttributeName = "recoveryKey")]
+		public string RecoveryKey { get; set; }
+		[XmlAttribute(AttributeName = "visibleRk")]
+		public bool VisibleRk { get; set; }
+		[XmlAttribute(AttributeName = "name")]
+		public string Nome { get; set; }
+		[XmlAttribute(AttributeName = "location")]
+		public string Localizacao { get; set; }
+		[XmlAttribute(AttributeName = "email")]
+		public string Email { get; set; }
 	}
 }
