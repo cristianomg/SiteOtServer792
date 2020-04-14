@@ -20,7 +20,6 @@ namespace OTServer.UI.MVC
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Configuration["path"] = "D:\\teste\\data\\players";
         }
 
         public IConfiguration Configuration { get; }
