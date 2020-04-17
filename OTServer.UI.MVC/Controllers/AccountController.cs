@@ -96,6 +96,7 @@ namespace OTServer.UI.MVC.Controllers
         public IActionResult RealizarLogout()
         {
             HttpContext.Session.Clear();
+            TempData.Remove(SessionIsLoginValid);
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
