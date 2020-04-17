@@ -78,8 +78,8 @@
                 <button class="btn btn-outline-light my-2 search" type="submit">Search</button>
             </div>
             @{
-                var loginAceito = TempData["LoginAceito"];
-                if (loginAceito != null && loginAceito.Equals("loginAceito"))
+                var loginAceito = TempData["_IsLoginValid"];
+                if (loginAceito != null && loginAceito.Equals("_IsLoginValid"))
                 {
                      <a class="btn btn-danger my-2 my-sm-0 painel" href="@Url.ActionLink("Painel", "Account")">Painel</a>
                 }
@@ -87,7 +87,7 @@
                 {
                     <button class="btn btn-danger  my-2 my-sm-0 login">Login</button>
                 }
-                    TempData.Keep("LoginAceito");
+                    TempData.Keep("_IsLoginValid");
                 }
 
             </nav>

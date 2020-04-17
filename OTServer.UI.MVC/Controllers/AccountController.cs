@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OTServer.UI.MVC.Models;
 using Teste.Models;
@@ -11,6 +12,10 @@ namespace OTServer.UI.MVC.Controllers
 {
     public class AccountController : BaseController
     {
+        const string SessionAccount = "_Account";
+        const string SessionPassoword = "_Pass";
+        const string SessionIsLoginValid = "_IsLoginValid";
+
         public AccountController(IMapper mapper) : base(mapper)
         {
             _mapper = mapper;
@@ -30,9 +35,9 @@ namespace OTServer.UI.MVC.Controllers
             var account = accounts.FirstOrDefault(x => x.Pass == model.Senha && x.AccountNumber == model.Login);
             if (account != null)
             {
-                TempData["Account"] = account.AccountNumber;
-                TempData["Pass"] =  account.Pass;
-                TempData["LoginAceito"] = "loginAceito";
+                HttpContext.Session.SetString(SessionAccount, account.AccountNumber);
+                HttpContext.Session.SetString(SessionPassoword, account.Pass);
+                TempData[SessionIsLoginValid] = SessionIsLoginValid;
                 return RedirectToAction("Painel", "Account");
             }
             TempData["ErroMessage"] = "Login e/ou senha incorretos";
@@ -44,24 +49,17 @@ namespace OTServer.UI.MVC.Controllers
         {
             try
             {
-                string login = TempData["Account"] as String;
-                string senha = TempData["Pass"] as String;
+                string login = HttpContext.Session.GetString(SessionAccount);
+                string senha = HttpContext.Session.GetString(SessionPassoword);
                 var account = accounts.FirstOrDefault(x => x.Pass == senha && x.AccountNumber == login);
                 if (account != null)
                 {
-                    TempData.Keep("Account");
-                    TempData.Keep("Pass");
-                    TempData.Keep("LoginAceito");
                     var accountDTO = _mapper.Map<DTOPainelAccount>(account);
                     return View(accountDTO);
                 }
-                TempData.Remove("Account");
-                TempData.Remove("Pass");
-                TempData.Remove("LoginAceito");
-                ViewData["ErroMessage"] = "Relogue novamente!";
                 return RedirectToAction("Index", "Home");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -70,14 +68,10 @@ namespace OTServer.UI.MVC.Controllers
         [Route("ListarPlayer")]
         public IActionResult ListarPlayer(string account, string senha)
         {
-            string login = TempData["Account"] as String;
-            string pass = TempData["Pass"] as String;
-            string aceito = TempData["LoginAceito"] as String;
-            if (login == account && pass == senha && aceito == "loginAceito")
+            string login = HttpContext.Session.GetString(SessionAccount);
+            string password = HttpContext.Session.GetString(SessionPassoword);
+            if (login == account && password == senha)
             {
-                TempData.Keep("Account");
-                TempData.Keep("Pass");
-                TempData.Keep("LoginAceito");
                 var listaPlayers = players.Where(x => x.Account == account).OrderBy(x=>x.Name).ToList();
 
                 if (listaPlayers.Any())
@@ -92,35 +86,28 @@ namespace OTServer.UI.MVC.Controllers
             }
             else
             {
-                TempData.Remove("Account");
-                TempData.Remove("Pass");
-                TempData.Remove("LoginAceito");
                 ViewData["ErroMessage"] = "Relogue novamente!";
                 return RedirectToAction("Index", "Home");
             }
         }
+       
         [HttpGet]
         [Route("Logout")]
         public IActionResult RealizarLogout()
         {
-            TempData.Remove("Account");
-            TempData.Remove("Pass");
-            TempData.Remove("LoginAceito");
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
         [Route("InibirRk")]
         public IActionResult InibirRecoveryKey()
         {
-            string login = TempData["Account"] as String;
-            string senha = TempData["Pass"] as String;
+            string login = HttpContext.Session.GetString(SessionAccount);
+            string senha = HttpContext.Session.GetString(SessionPassoword);
 
             var account = accounts.Where(x => x.AccountNumber == login && x.Pass == senha).FirstOrDefault();
             if (account != null)
             {
-                TempData.Keep("Account");
-                TempData.Keep("Pass");
-                TempData.Keep("LoginAceito");
                 account.VisibleRk = false;
                 base.AtualizarAccount(account);
                 return RedirectToAction("painel");
@@ -159,9 +146,9 @@ namespace OTServer.UI.MVC.Controllers
                         account.PremEnd = "0";
                         if (CriarAccount(account))
                         {
-                            TempData["Account"] = model.AccountNumber;
-                            TempData["Pass"] = model.Pass;
-                            TempData["LoginAceito"] = "loginAceito";
+                            HttpContext.Session.SetString(SessionAccount, model.AccountNumber);
+                            HttpContext.Session.SetString(SessionPassoword, model.Pass);
+                            TempData[SessionIsLoginValid] = SessionIsLoginValid;
                             return RedirectToAction("Painel");
                         }
                         TempData["ErroMessage"] = "Essa Account já existe tente novamente.";
@@ -221,13 +208,10 @@ namespace OTServer.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult MudarSenha(DTOMudarSenha model)
         {
-            string login = TempData["Account"] as String;
-            string senha = TempData["Pass"] as String;
+            string login = HttpContext.Session.GetString(SessionAccount);
+            string senha = HttpContext.Session.GetString(SessionPassoword);
             if (senha == model.SenhaAtual)
             {
-                TempData.Keep("Account");
-                TempData.Keep("Pass");
-                TempData.Keep("LoginAceito");
                 if (ModelState.IsValid)
                 {
                     var account = accounts.FirstOrDefault(x => x.Pass == model.SenhaAtual && x.RecoveryKey == model.RecoveryKey);
@@ -238,7 +222,7 @@ namespace OTServer.UI.MVC.Controllers
                             account.Pass = model.SenhaNova;
                             if (AtualizarAccount(account))
                             {
-                                TempData["Pass"] = account.Pass;
+                                HttpContext.Session.SetString(SessionPassoword, account.Pass);
                                 TempData["ResultadoMudancaoSenha"] = "Senha alterada com sucesso.";
                                 return RedirectToAction("Painel");
                             }
@@ -256,9 +240,7 @@ namespace OTServer.UI.MVC.Controllers
             }
             else
             {
-                TempData.Remove("Account");
-                TempData.Remove("Pass");
-                TempData.Remove("LoginAceito");
+                HttpContext.Session.Clear();
                 ViewData["ErroMessage"] = "Relogue novamente!";
                 return RedirectToAction("Index", "Home");
             }
