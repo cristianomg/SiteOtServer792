@@ -9,7 +9,7 @@
 <table class="table table-secondary">
     <thead>
         <tr>
-            <th>
+            <th class="pl-4">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -25,7 +25,8 @@
             {
                 <tr>
                     <td class="col-6">
-                        @Html.DisplayFor(modelItem => item.Name)
+                        <button class="btn btn-default details" data-id="@item.Id"><i class="glyphicon glyphicon-file"></i>@Html.DisplayFor(modelItem => item.Name)</button>
+
                     </td>
                     <td class="col-6">
                         @Html.DisplayFor(modelItem => item.Skill)

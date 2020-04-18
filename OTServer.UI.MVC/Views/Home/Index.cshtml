@@ -2,29 +2,65 @@
     ViewData["Title"] = "Home Page";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">teste</h1>
-        @{
-            var erro = TempData["ErroMessage"] as String;
-            if (erro != null)
-            {
-                <div class="alert alert-primary" role="alert">
-                    @erro
-                </div>
-            }
+<div class="container">
+    @{
+        var erro = TempData["ErroMessage"] as String;
+        if (erro != null)
+        {
+            <div class="alert alert-primary" role="alert">
+                @erro
+            </div>
         }
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    }
+
+    <div class="panel panel-primary">
+        <div class="panel-heading bg-primary col-sm-12  text-white p-2 pd-2 ">Noticias: </div>
+        <div class="panel-body">
+            <dl class="row p-3">
+                <div class="pd-5 text-justify m-2">
+                    <h2>Lista de Sistemas atualizada do Spirit Souls RPG</h2>
+                <hr />
+                    <p>
+                        <span style="color:#5cb85c">Systema de Guilds</span> - Personagens da mesma guilda não podem se atacar, para criar uma guild devera falar com o NPC "GUILD MASTER" localizado em Carlin.
+                    </p>
+                    <p>
+                        <span style="color:#5cb85c">Systema De Honrra</span> - Quando um player matar outro com diferença de [100 Levels] O Systema de honra sera ativado e automaticamente ele recebera 2 Frags de puniçao e uma porcentagem de experiencia retirada.
+                    </p>
+                    <p>
+                        <span style="color:#5cb85c">Systema De Critical</span> - Agora Quando o player estiver utilizando itens que contem [Inc.Phys 0%] Almentará sua chance de dar critical. Usando arma, helmet e armor, seram somadas todas as porcentagens. Para saber a soma correta digite !critical
+                    </p>
+                    <p>
+                        <span style="color:#5cb85c">Informaçoes do Personagem</span> - Você pode obter informações avançadas de seu personagem! Ex: [Inc.Magic 0%],[Inc.Abs 0%],[Inc.Phys 0%], Utilize o comando: !status
+                    </p>
+
+                    <p>
+                        <span style="color:#5cb85c">Systema De PVP</span> - Você pode ver seus pontos de Guerra Ex: [Kills / Mortes / Seus Pontos / Sua Media ] Utilize o comando: !pvp
+                    </p>
+                    <p>
+                        <span style="color:#5cb85c">Sistema Reset</span> - Personagens Deuses acima de level 500 podem ser resetados para o level 8 recebendo atributos extras como: hitpoint, manapoint, magic level e Skills. Falar com Npc Anoriel localizado em Valinor.
+                    </p>
+                    <p>
+                        <span style="color:#5cb85c">Sistema Anti-Hide</span> - Agora alguns monstros mais importantes e corpos de jogadores acusam o item que foi pego do corpo, evitando problemas com outros personagens.
+                    </p>
+                    <p>
+                        <span style="color:#5cb85c">Sistema de Monstros Passificos</span> - Agora alguns monstros são passificos, significa que não atacam sem serem atacados, mas cuidado alguns deles podem se tornar hostis quando veem alguem invadir seu habitat, por atacar um membro de seu grupo ou até mesmo por chegar muito perto, vai depender da personalidade de cada monstro.
+                    </p>
+                </div>
+
+            </dl>
+        </div>
     </div>
+</div>
 @section scripts{
-<script>
-    $(document).ready(
-        function () {
-            setTimeout(function () {
-                $(".alert").remove();
-            }, 3000);
-      }
-    );
-</script>
+    <script>
+        $(document).ready(
+            function () {
+                setTimeout(function () {
+                    $(".alert").remove();
+                }, 3000);
+            }
+        );
+    </script>
 
 
 }
