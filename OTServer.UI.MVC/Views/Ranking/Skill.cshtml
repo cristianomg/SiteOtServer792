@@ -6,7 +6,7 @@
 
 <h1>@ViewBag.skillDs</h1>
 
-<table class="table">
+<table class="table table-secondary">
     <thead>
         <tr>
             <th>
@@ -23,8 +23,7 @@
             int count = 0;
             foreach (var item in Model)
             {
-                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
-                <tr style="@estilo">
+                <tr>
                     <td class="col-6">
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>

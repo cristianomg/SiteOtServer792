@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<OTServer.UI.MVC.Models.DTOListaDePlayer>
 
-<table class="table">
+<table class="table table-active">
     <thead>
         <tr>
             <th>
@@ -32,8 +32,7 @@
             int count = 0;
             foreach (var item in Model)
             {
-                string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
-                <tr style="@estilo">
+                <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>

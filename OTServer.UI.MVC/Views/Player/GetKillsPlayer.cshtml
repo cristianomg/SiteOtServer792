@@ -11,14 +11,13 @@
             </button>
         </div>
         <div class="modal-body">
-            <table class="table">
+            <table class="table table-active">
                 <tbody>
                     @{
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            string estilo = count % 2 == 0 ? "background-color:#CFFCF0" : "";
-                            <tr style="@estilo">
+                            <tr>
                                 <td>
                                     Matou @item.Name Level @item.Level em @{string tempo = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(item.Time).ToString("dd/MM/yyy hh:MM:ss").Replace(" ", " as ");} @tempo
                                 </td>
