@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OTServer.Domain.Models.Account;
 using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Teste.Models;
 
 namespace OTServer.UI.MVC.Models
 {

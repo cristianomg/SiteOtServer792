@@ -1,0 +1,117 @@
+﻿@model OTServer.UI.MVC.Models.DTOGuilds
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    @foreach (var guild in Model.Guild)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading bg-primary   text-white p-2 justify-content-lg-start">
+                @guild.Name
+            </div>
+
+            <div class="panel-body">
+                <hr />
+                <table class="table table-responsive-lg">
+                    <thead>
+                        <tr class="d-lg-flex" >
+                            <th class="col-2">
+                                Nome
+                            </th>
+                            <th class="col-2">
+                                Rank
+                            </th>
+                            <th class="col-2">
+                                Voc
+                            </th>
+                            <th class="col-2">
+                                Level
+                            </th>
+                            <th class="col-4">
+                                Nick
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var member in guild.Member)
+                        {
+                            <tr class="d-lg-flex">
+                                <th class="col-2">
+                                    @member.Name
+                                </th>
+                                <th class="col-2">
+                                    @member.Rank
+                                </th>
+                                <th class="col-2">
+                                    @{
+                                        string result = "";
+                                        var voc = member.Voc;
+                                        switch (voc)
+                                        {
+                                            case "1":
+                                                result = "S";
+                                                break;
+                                            case "2":
+                                                result = "D";
+                                                break;
+                                            case "3":
+                                                result = "A";
+                                                break;
+                                            case "4":
+                                                result = "K";
+                                                break;
+                                            case "5":
+                                                result = "MS";
+                                                break;
+                                            case "6":
+                                                result = "ED";
+                                                break;
+                                            case "7":
+                                                result = "RA";
+                                                break;
+                                            case "8":
+                                                result = "EK";
+                                                break;
+                                            case "9":
+                                                result = "W";
+                                                break;
+                                            case "10":
+                                                result = "C";
+                                                break;
+                                            case "11":
+                                                result = "R";
+                                                break;
+                                            case "12":
+                                                result = "SL";
+                                                break;
+                                            case "13":
+                                                result = "DW";
+                                                break;
+                                            case "14":
+                                                result = "EC";
+                                                break;
+                                            case "15":
+                                                result = "ER";
+                                                break;
+                                            case "16":
+                                                result = "DSL";
+                                                break;
+                                        }
+                                    }
+                                    @result
+                                </th>
+                                <th class="col-2">
+                                    @member.Level
+                                </th>
+                                <th class="col-4">
+                                    @member.Nick
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

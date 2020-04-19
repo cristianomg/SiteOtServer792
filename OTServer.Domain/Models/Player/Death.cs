@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Teste.Models
+namespace OTServer.Domain.Models.Player
 {
 	[XmlRoot(ElementName = "death")]
 	public class Death

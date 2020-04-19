@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OTServer.UI.MVC.Models
 {
-    public class DTOCreateAccount
+    public class DTOCriarAccount
     {
 		[DisplayName("Número da Account * ")]
 		[StringLength(20, MinimumLength = 6)]

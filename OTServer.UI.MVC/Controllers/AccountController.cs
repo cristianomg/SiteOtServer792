@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OTServer.Domain.Models.Account;
 using OTServer.UI.MVC.Models;
-using Teste.Models;
 
 namespace OTServer.UI.MVC.Controllers
 {
@@ -57,10 +57,12 @@ namespace OTServer.UI.MVC.Controllers
                     var accountDTO = _mapper.Map<DTOPainelAccount>(account);
                     return View(accountDTO);
                 }
+                TempData.Remove(SessionIsLoginValid);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception)
             {
+                TempData.Remove(SessionIsLoginValid);
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -120,13 +122,13 @@ namespace OTServer.UI.MVC.Controllers
         [Route("Registrar")]
         public IActionResult RegistrarConta()
         {
-            var accountDTO = new DTOCreateAccount();
+            var accountDTO = new DTOCriarAccount();
             return View(accountDTO);
         }
         [HttpPost]
         [Route("Registrar")]
         [ValidateAntiForgeryToken]
-        public IActionResult RegistrarConta(DTOCreateAccount model)
+        public IActionResult RegistrarConta(DTOCriarAccount model)
         {
             if (ModelState.IsValid)
             {
@@ -262,6 +264,13 @@ namespace OTServer.UI.MVC.Controllers
         {
             var dtoDeletarPersonagem = new DTODeletarPersonagem();
             return RedirectToAction("Painel");
+        }
+        [HttpGet]
+        [Route("CriarPersonagem")]
+        public IActionResult CriarPersonagem()
+        {
+            var dtoCriarPersonagem = new DTOCriarPersonagem();
+            return PartialView(dtoCriarPersonagem);
         }
     }
 }

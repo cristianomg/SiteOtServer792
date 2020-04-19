@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - OTServer</title>
+    <title>@ViewData["Title"] - OtServ RPG</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/search.css" />
@@ -40,57 +40,58 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="menu">
-            <div class="container col-8">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OTServer</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item dropdown active">
-                            <a class="nav-link dropdown-toggle" href=@Url.Action("index", "ranking") id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ranking</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown09">
-                                <a class="dropdown-item" href="@Url.Action("index", "ranking")">Level</a>
-                                <a class="dropdown-item" href="@Url.Action("Magic", "ranking")">Magic Level</a>
-                                <a class="dropdown-item" href="@Url.Action("Skill", "ranking")">First Fighting</a>
-                                <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 1})">Club Fighting</a>
-                                <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 2})">Sword Fighting</a>
-                                <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 3})">Axe Fighting</a>
-                                <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 4})">Distance Fighting</a>
-                                <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 5})">Shielding</a>
-                                <a class="dropdown-item" href="@Url.Action("Frags", "ranking")">Frags</a>
-                            </div>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" asp-area="" asp-controller="Player" asp-action="ListarMortes">Lista de Mortes <span class="sr-only">(current)</span></a>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OtServ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                        </li>
-                    </ul>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href=@Url.Action("index", "ranking") id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ranking</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown09">
+                            <a class="dropdown-item" href="@Url.Action("index", "ranking")">Level</a>
+                            <a class="dropdown-item" href="@Url.Action("Magic", "ranking")">Magic Level</a>
+                            <a class="dropdown-item" href="@Url.Action("Skill", "ranking")">First Fighting</a>
+                            <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 1})">Club Fighting</a>
+                            <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 2})">Sword Fighting</a>
+                            <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 3})">Axe Fighting</a>
+                            <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 4})">Distance Fighting</a>
+                            <a class="dropdown-item" href="@Url.Action("Skill", "ranking", new { skill = 5})">Shielding</a>
+                            <a class="dropdown-item" href="@Url.Action("Frags", "ranking")">Frags</a>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Player" asp-action="ListarMortes">Lista de Mortes <span class="sr-only">(current)</span></a>
+
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Guilds" asp-action="Index"> Lista de Guilds <span class="sr-only">(current)</span></a>
+
+                    </li>
+                </ul>
+                <div class="form-inline my-0 my-lg-0">
+                    <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 search" type="submit">Search</button>
                 </div>
-            </div>
-            <div class="form-inline my-0 my-lg-0 col-3">
-                <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light my-2 search" type="submit">Search</button>
-            </div>
-            @{
-                var loginAceito = TempData["_IsLoginValid"];
-                if (loginAceito != null && loginAceito.Equals("_IsLoginValid"))
-                {
-                     <a class="btn btn-danger my-2 my-sm-0 painel" href="@Url.ActionLink("Painel", "Account")">Painel</a>
-                }
-                else
-                {
-                    <button class="btn btn-danger  my-2 my-sm-0 login">Login</button>
-                }
+                @{
+                    var loginAceito = TempData["_IsLoginValid"];
+                    if (loginAceito != null && loginAceito.Equals("_IsLoginValid"))
+                    {
+                        <a class="btn btn-danger my-2 my-sm-0 painel" href="@Url.ActionLink("Painel", "Account")">Painel</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger  my-2 my-sm-0 login">Login</button>
+                    }
                     TempData.Keep("_IsLoginValid");
                 }
-
-            </nav>
+            </div>
+        </nav>
     </header>
     <div class="container">
         <main role="main" class="h-100 p-5 body-context">
@@ -108,7 +109,7 @@
 
     <footer class="border-top footer text-light bg-primary">
         <div class="container">
-            &copy; 2020 - OTServer - <a asp-area="" asp-controller="Home" asp-action="Privacy" text-light style="color:antiquewhite">Privacy</a>
+            &copy; 2020 - OtServ RPG 
         </div>
 
     </footer>
@@ -135,7 +136,19 @@
                 })
             });
         })
+        var target = $('nav');
+        var targetHeight = target.outerHeight();
 
+        $(document).scroll(function (e) {
+            var scrollPercent = (targetHeight - window.scrollY) / targetHeight;
+            if (scrollPercent < 0) {
+                target.css('opacity', 0.7);
+
+            }
+            if (scrollPercent >= 0) {
+                target.css('opacity', 1);
+            }
+        });
     </script>
 
 </body>

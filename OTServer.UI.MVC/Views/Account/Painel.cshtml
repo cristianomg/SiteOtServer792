@@ -23,7 +23,7 @@
                 <hr />
             </dt>
             <div class="col-12">
-                <button class="btn btn-success"> Criar Personagem </button>
+                <button class="btn btn-success criarPersonagem"> Criar Personagem </button>
             </div>
             <div class="col-12">
                 <button class="btn btn-info mudarSenha"> Mudar Senha</button>
@@ -127,6 +127,14 @@
         $(function () {
             $(".mudarSenha").click(function () {
                 $("#modal").load("MudarSenha", function () {
+                    $("#modal").modal("show");
+                })
+            });
+        })
+
+        $(function () {
+            $(".criarPersonagem").click(function () {
+                $("#modal").load("CriarPersonagem", function () {
                     $("#modal").modal("show");
                 })
             });

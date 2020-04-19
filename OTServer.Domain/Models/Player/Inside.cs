@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Teste.Models
+namespace OTServer.Domain.Models.Player
 {
 	[XmlRoot(ElementName = "inside")]
 	public class Inside

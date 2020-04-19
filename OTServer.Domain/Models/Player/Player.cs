@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace Teste.Models
+namespace OTServer.Domain.Models.Player
 {
 	[XmlRoot(ElementName = "player")]
 	public class Player
@@ -30,7 +27,7 @@ namespace Teste.Models
 		[XmlElement(ElementName = "spells")]
 		public string Spells { get; set; }
 		[XmlElement(ElementName = "blessings")]
-		public string Blessings { get; set; }
+		public Blessings Blessings { get; set; }
 		[XmlElement(ElementName = "inventory")]
 		public Inventory Inventory { get; set; }
 		[XmlElement(ElementName = "depots")]
@@ -46,7 +43,7 @@ namespace Teste.Models
 		[XmlAttribute(AttributeName = "lookdir")]
 		public string Lookdir { get; set; }
 		[XmlAttribute(AttributeName = "exp")]
-		public int Exp { get; set; }
+		public long Exp { get; set; }
 		[XmlAttribute(AttributeName = "voc")]
 		public string Voc { get; set; }
 		[XmlAttribute(AttributeName = "level")]

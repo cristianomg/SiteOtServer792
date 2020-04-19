@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OTServer.UI.MVC.Models;
-using Teste.Models;
 
 namespace OTServer.UI.MVC.Controllers
 {
@@ -81,12 +80,12 @@ namespace OTServer.UI.MVC.Controllers
         {
             try
             {
-                @ViewBag.page = page;
+                ViewBag.page = page;
                 var varListaMortes = (from player in players
                                       where player.Deaths.Death.Any()
                                       select new
                                       {
-                                          mortes = player.Deaths.Death.ToList(),
+                                          mortes = player.Deaths.Death,
                                           playerMorto = player
                                       }).ToList();
 
@@ -106,7 +105,7 @@ namespace OTServer.UI.MVC.Controllers
             }
             catch
             {
-                return BadRequest();
+                return View(new List<DTOMortes>());
 
             }
         }

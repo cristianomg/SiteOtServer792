@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
-namespace Teste.Models
+namespace OTServer.Domain.Models.Player
 {
-	[XmlRoot(ElementName = "spawn")]
-	public class Spawn
+	[XmlRoot(ElementName = "temple")]
+	public class Temple
 	{
 		[XmlAttribute(AttributeName = "x")]
 		public string X { get; set; }

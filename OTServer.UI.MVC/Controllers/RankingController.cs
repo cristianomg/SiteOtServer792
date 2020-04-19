@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using OTServer.UI.MVC.Models;
-using Teste.Models;
 
 namespace OTServer.UI.MVC.Controllers
 {
@@ -25,7 +21,7 @@ namespace OTServer.UI.MVC.Controllers
             
             ViewBag.page = page > 0 ? page : 0;
 
-            var ordenado = players.OrderByDescending(x => x.Resets).ThenByDescending(x => x.Level).ThenByDescending(x => x.Exp).ThenBy(x => x.Name).Skip(page * 10).Take(10);
+            var ordenado = players.Where(x=>x.Access == 0).OrderByDescending(x => x.Resets).ThenByDescending(x => x.Level).ThenByDescending(x => x.Exp).ThenBy(x => x.Name).Skip(page * 10).Take(10);
             var viewModel = _mapper.Map<List<DTORankingLevel>>(ordenado);
             return View(viewModel);
         }
@@ -35,6 +31,7 @@ namespace OTServer.UI.MVC.Controllers
         {
             ViewBag.page = page > 0 ? page : 0;
             var r = (from player in players
+                     where player.Access == 0
                      select new DTORankFrags
                      {
                          Id = player.Id,
@@ -56,6 +53,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.page = page > 0 ? page : 0;
 
             var result = (from player in players
+                          where player.Access == 0
                           select new DTORankMagic
                           {
                               Id = player.Id,
@@ -100,6 +98,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.skillId = skill;
 
             var result = (from player in players
+                          where player.Access == 0
                           select new DTORankSkill
                           {
                               Id = player.Id,

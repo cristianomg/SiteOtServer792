@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OTServer.Domain.Models.Account;
+using OTServer.Domain.Models.Player;
 using OTServer.UI.MVC.Models;
-using Teste.Models;
 
 namespace OTServer.UI.MVC
 {
@@ -34,7 +35,7 @@ namespace OTServer.UI.MVC
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.IdleTimeout = TimeSpan.FromHours(1);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -88,14 +89,15 @@ namespace OTServer.UI.MVC
                 //Account
                 config.CreateMap<Account, DTOAccountLogin>();
                 config.CreateMap<Account, DTOPainelAccount>();
-                config.CreateMap<DTOCreateAccount, Account>();
+                config.CreateMap<Account, DTOCriarAccount>();
                 config.CreateMap<DTOAccountLogin, Account>();
                 config.CreateMap<DTOPainelAccount, Account>();
-                config.CreateMap<DTOCreateAccount, Account>();
+                config.CreateMap<DTOCriarAccount, Account>();
 
 
 
                 //Player
+                config.CreateMap<Player, DTOCriarPersonagem>();
                 config.CreateMap<Player, DTOListaDePlayer>();
                 config.CreateMap<Player, DTOKills>();
                 config.CreateMap<Player, DTOPlayerSearch>();
@@ -103,6 +105,7 @@ namespace OTServer.UI.MVC
                 config.CreateMap<Player, DTORankFrags>();
                 config.CreateMap<Player, DTORankMagic>();
                 config.CreateMap<Player, DTORankSkill>();
+                config.CreateMap<DTOCriarPersonagem, Player>();
                 config.CreateMap<DTOKills, Player>();
                 config.CreateMap<DTOPlayerSearch, Player>();
                 config.CreateMap<DTORankingLevel, Player>();
