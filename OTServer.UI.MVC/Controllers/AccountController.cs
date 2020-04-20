@@ -265,7 +265,7 @@ namespace OTServer.UI.MVC.Controllers
         public IActionResult DeletarPersonagem(DTODeletarPersonagem model)
         {
             var dtoDeletarPersonagem = new DTODeletarPersonagem();
-            base.
+            
             return RedirectToAction("Painel");
         }
         [HttpGet]
