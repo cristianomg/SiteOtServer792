@@ -264,6 +264,7 @@ namespace OTServer.UI.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletarPersonagem(DTODeletarPersonagem model)
         {
+            //teste
             var dtoDeletarPersonagem = new DTODeletarPersonagem();
             
             return RedirectToAction("Painel");
