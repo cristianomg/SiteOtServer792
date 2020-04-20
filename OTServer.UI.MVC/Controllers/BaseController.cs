@@ -38,6 +38,7 @@ namespace OTServer.UI.MVC.Controllers
             accounts = LerArquivosAccount(this.diretorioAccounts);
             guilds = LerArquivosGuilds(this.diretorioGuilds);
 
+
         }
 
         private List<Player> LerArquivosPlayer(string diretorio)
