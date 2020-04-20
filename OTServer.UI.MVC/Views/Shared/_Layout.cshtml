@@ -143,10 +143,12 @@
             var scrollPercent = (targetHeight - window.scrollY) / targetHeight;
             if (scrollPercent < 0) {
                 target.css('opacity', 0.7);
+                target.removeClass('bg-primary').addClass('bg-dark')
 
             }
             if (scrollPercent >= 0) {
                 target.css('opacity', 1);
+                target.removeClass('bg-dark').addClass('bg-primary')
             }
         });
     </script>

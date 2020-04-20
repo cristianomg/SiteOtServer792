@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OTServer.Domain.Factory;
 using OTServer.Domain.Models.Account;
+using OTServer.Domain.Models.Player;
 using OTServer.UI.MVC.Models;
 
 namespace OTServer.UI.MVC.Controllers
@@ -263,6 +265,7 @@ namespace OTServer.UI.MVC.Controllers
         public IActionResult DeletarPersonagem(DTODeletarPersonagem model)
         {
             var dtoDeletarPersonagem = new DTODeletarPersonagem();
+            base.
             return RedirectToAction("Painel");
         }
         [HttpGet]
@@ -271,6 +274,23 @@ namespace OTServer.UI.MVC.Controllers
         {
             var dtoCriarPersonagem = new DTOCriarPersonagem();
             return PartialView(dtoCriarPersonagem);
+        }
+        [HttpPost]
+        [Route("CriarPersonagem")]
+        public IActionResult CriarPersonagem(DTOCriarPersonagem model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Painel");
+            }
+
+            var newPlayer = PlayerFactory.NewPlayer(HttpContext.Session.GetString(SessionAccount),
+                                                    model.Nome,
+                                                    ((int)model.Voc).ToString(),
+                                                    ((int)model.Sexo).ToString()
+                                                    );
+            base.CriarPlayer(newPlayer);
+            return RedirectToAction("Painel");
         }
     }
 }

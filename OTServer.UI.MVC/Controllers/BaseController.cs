@@ -154,5 +154,56 @@ namespace OTServer.UI.MVC.Controllers
                 return false;
             }
         }
+        protected bool CriarPlayer(Player player)
+        {
+            try
+            {
+                var arquivo = $"{this.diretorioPlayer}\\{player.Name}.xml";
+                if (System.IO.File.Exists(arquivo))
+                    return false;
+
+                var account = accounts.FirstOrDefault(x => x.AccountNumber == player.Account);
+                if (account == null)
+                    return false;
+
+                account.Characters.Character.Add(new Character {Name= player.Name });
+                AtualizarAccount(account);
+                System.Xml.Serialization.XmlSerializer serializer = new XmlSerializer(typeof(Player));
+                TextWriter writer = new StreamWriter(arquivo);
+                serializer.Serialize(writer, player);
+                writer.Close();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        protected bool DeletarPersonagem(Player player)
+        {
+            try
+            {
+                var arquivo = $"{this.diretorioPlayer}\\{player.Name}.xml";
+                if (!System.IO.File.Exists(arquivo))
+                    return false;
+
+                var account = accounts.FirstOrDefault(x => x.AccountNumber == player.Account);
+                if (account == null)
+                    return false;
+
+                account.Characters.Character.Remove(new Character { Name= player.Name });
+                //AtualizarAccount(account);
+
+                return true;
+
+
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
