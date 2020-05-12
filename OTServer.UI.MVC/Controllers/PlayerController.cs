@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using OTServer.Domain.Models.Player;
 using OTServer.UI.MVC.Models;
 
 namespace OTServer.UI.MVC.Controllers
@@ -109,5 +110,28 @@ namespace OTServer.UI.MVC.Controllers
 
             }
         }
+
+        [HttpGet]
+        [Route("ListaPlayersOnline")]
+        public IActionResult ListaPlayersOnline(int page)
+        {
+            try
+            {
+                ViewBag.page = page > 0 ? page : 0;
+
+                var playersPaginado = playersOnline.Where(x=>x.Access < 3).Skip(page * 10).Take(10);
+
+                var viewModel = _mapper.Map<List<DTORankingLevel>>(playersPaginado);
+
+                return View(viewModel);
+            }
+            catch
+            {
+                return View(new List<DTOMortes>());
+
+            }
+        }
+
+
     }
 }

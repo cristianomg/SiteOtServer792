@@ -11,5 +11,9 @@ namespace OTServer.Domain.Models.Player
 		public Inside Inside { get; set; }
 		[XmlAttribute(AttributeName = "text")]
 		public string Text { get; set; }
+		[XmlAttribute(AttributeName = "count")]
+		public int Count { get; set; }
+		[XmlAttribute(AttributeName = "charges")]
+		public int Charges { get; set; }
 	}
 }

@@ -10,8 +10,8 @@ namespace OTServer.UI.MVC.Models
     public class DTOCriarPersonagem
     {
         [Required]
-        [RegularExpression("^[A-Za-z]{6,20}")]
-        [MinLength(6)]
+        [RegularExpression("^[A-Za-z]{5,20}")]
+        [MinLength(5)]
         [MaxLength(20)]
         public string Nome { get; set; }
         [Required]

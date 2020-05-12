@@ -11,7 +11,7 @@ namespace OTServer.UI.MVC.Models
         public string Name { get; set; }
         public string Rank { get; set; }
         public string Nick { get; set; }
-        public string Voc { get; set; }
+        public int Voc { get; set; }
         public int Level { get; set; }
 
     }

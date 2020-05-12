@@ -30,10 +30,10 @@ namespace OTServer.UI.MVC.Controllers
                         {
                             Name = member.Name,
                             Rank = member.Rank,
-                            Nick = member.Nick,
+                            Nick = !String.IsNullOrEmpty(member.Nick) ? member.Nick : "Sem Nick",
                             Status = member.Status,
                             Level = responseMember.Level,
-                            Voc = responseMember?.Voc,
+                            Voc = responseMember.Voc,
                         };
                         dtoGuild.Member.Add(dtoMember);
                     }

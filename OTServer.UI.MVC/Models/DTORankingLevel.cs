@@ -16,7 +16,7 @@ namespace OTServer.UI.MVC.Models
         [Display(Name = "Resets", Description = "Resets")]
         public int Resets { get; set; }
         [Display(Name = "Vocs")]
-        public string Voc { get; set; }
+        public int Voc { get; set; }
         [Display(Name = "Experience", Description = "Experience")]
         public string Exp { get; set; }
     }

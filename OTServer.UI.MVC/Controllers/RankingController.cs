@@ -21,8 +21,24 @@ namespace OTServer.UI.MVC.Controllers
             
             ViewBag.page = page > 0 ? page : 0;
 
-            var ordenado = players.Where(x=>x.Access == 0).OrderByDescending(x => x.Resets).ThenByDescending(x => x.Level).ThenByDescending(x => x.Exp).ThenBy(x => x.Name).Skip(page * 10).Take(10);
-            var viewModel = _mapper.Map<List<DTORankingLevel>>(ordenado);
+            var deuses = players.Where(x => x.Voc > 12 && x.Access == 0)
+                .OrderByDescending(x => x.Resets)
+                .ThenByDescending(x => x.Level)
+                .ThenByDescending(x => x.Exp)
+                .ThenBy(x => x.Name);
+
+            var semiDeuses = players.Where(x => x.Voc > 8 && x.Voc <= 12 && x.Access == 0)
+                .OrderByDescending(x => x.Level)
+                .ThenByDescending(x => x.Exp)
+                .ThenBy(x => x.Name);
+
+            var noValan = players.Where(x => x.Voc < 9 && x.Access == 0)
+                .OrderByDescending(x => x.Level)
+                .ThenByDescending(x => x.Exp)
+                .ThenBy(x => x.Name);
+
+            var ranking = deuses.Union(semiDeuses).Union(noValan).Skip(page * 10).Take(10);
+            var viewModel = _mapper.Map<List<DTORankingLevel>>(ranking);
             return View(viewModel);
         }
         [HttpGet]

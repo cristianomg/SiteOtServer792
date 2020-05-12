@@ -7,10 +7,16 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="Views\Account\RegistrarConta - Copy.cshtml" />
     <Content Remove="Views\Guilds\Index2.cshtml" />
     <Content Remove="Views\Guilds\View.cshtml" />
+    <Content Remove="wwwroot\DS Setup.exe" />
+    <Content Remove="wwwroot\lib\OLD TIMES 1.0 CLIENTE.rar" />
   </ItemGroup>
 
   <ItemGroup>

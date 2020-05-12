@@ -45,7 +45,7 @@ namespace OTServer.Domain.Models.Player
 		[XmlAttribute(AttributeName = "exp")]
 		public long Exp { get; set; }
 		[XmlAttribute(AttributeName = "voc")]
-		public string Voc { get; set; }
+		public int Voc { get; set; }
 		[XmlAttribute(AttributeName = "level")]
 		public int Level { get; set; }
 		[XmlAttribute(AttributeName = "access")]

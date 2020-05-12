@@ -285,11 +285,18 @@ namespace OTServer.UI.MVC.Controllers
                 return RedirectToAction("Painel");
             }
 
+            var Nome = model.Nome.Trim();
+
+            if (players.Any(x=>x.Name.ToLower() == Nome.ToLower()))
+            {
+                TempData["ResultadoMudancaoSenha"] = "Já existe um player com esse nome. Tente outro nome.";
+                return RedirectToAction("Painel");
+            }
+
             var newPlayer = PlayerFactory.NewPlayer(HttpContext.Session.GetString(SessionAccount),
-                                                    model.Nome,
-                                                    ((int)model.Voc).ToString(),
-                                                    ((int)model.Sexo).ToString()
-                                                    );
+                                                    Nome,
+                                                    ((int)model.Voc),
+                                                    ((int)model.Sexo).ToString());
             base.CriarPlayer(newPlayer);
             return RedirectToAction("Painel");
         }

@@ -18,11 +18,13 @@ namespace OTServer.UI.MVC.Controllers
         protected List<Player> players = new List<Player>();
         protected List<Account> accounts = new List<Account>();
         protected Guilds guilds;
+        protected List<Player> playersOnline = new List<Player>();
 
         protected IMapper _mapper;
         private readonly string diretorioPlayer;
         private readonly string diretorioAccounts;
         private readonly string diretorioGuilds;
+        private readonly string diretorioPlayersOnline;
 
         public BaseController(IMapper mapper)
         {
@@ -33,12 +35,12 @@ namespace OTServer.UI.MVC.Controllers
             diretorioPlayer = config.GetConnectionString("CaminhoPlayers");
             diretorioAccounts = config.GetConnectionString("CaminhoAccounts");
             diretorioGuilds = config.GetConnectionString("CaminhoGuilds");
+            diretorioPlayersOnline = config.GetConnectionString("CaminhoOnlineList");
 
             players = LerArquivosPlayer(this.diretorioPlayer);
             accounts = LerArquivosAccount(this.diretorioAccounts);
             guilds = LerArquivosGuilds(this.diretorioGuilds);
-
-
+            playersOnline = CarregarPlayersOnline(this.diretorioPlayersOnline);
         }
 
         private List<Player> LerArquivosPlayer(string diretorio)
@@ -97,6 +99,27 @@ namespace OTServer.UI.MVC.Controllers
                 }
             }
             return accounts;
+        }
+        private List<Player> CarregarPlayersOnline(string diretorio)
+        {
+            List<Player> listaPlayersOnline = new List<Player>();
+            try
+            {
+                using (StreamReader textReader = new StreamReader(diretorio))
+                {
+                    string[] text = textReader.ReadToEnd().Split(':').ElementAt(1).Split('.').ElementAt(0).Split(',');
+                    foreach(var p in text)
+                    {
+                        var player = players.FirstOrDefault(x=>x.Name == p.Trim());
+                        if (player != null )
+                            listaPlayersOnline.Add(player);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return listaPlayersOnline;
         }
         private Guilds LerArquivosGuilds(string diretorio)
         {
@@ -206,5 +229,7 @@ namespace OTServer.UI.MVC.Controllers
                 return false;
             }
         }
+
+
     }
 }
