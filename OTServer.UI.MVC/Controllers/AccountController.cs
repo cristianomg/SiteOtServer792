@@ -14,10 +14,6 @@ namespace OTServer.UI.MVC.Controllers
 {
     public class AccountController : BaseController
     {
-        const string SessionAccount = "_Account";
-        const string SessionPassoword = "_Pass";
-        const string SessionIsLoginValid = "_IsLoginValid";
-
         public AccountController(IMapper mapper) : base(mapper)
         {
             _mapper = mapper;
@@ -251,54 +247,6 @@ namespace OTServer.UI.MVC.Controllers
             }
 
 
-        }
-        [HttpGet]
-        [Route("DeletarPersonagem")]
-        public IActionResult DeletarPersonagem()
-        {
-            var dtoDeletarPersonagem = new DTODeletarPersonagem();
-            return PartialView(dtoDeletarPersonagem);
-        }
-        [HttpPost]
-        [Route("DeletarPersonagem")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeletarPersonagem(DTODeletarPersonagem model)
-        {
-            //teste
-            var dtoDeletarPersonagem = new DTODeletarPersonagem();
-            
-            return RedirectToAction("Painel");
-        }
-        [HttpGet]
-        [Route("CriarPersonagem")]
-        public IActionResult CriarPersonagem()
-        {
-            var dtoCriarPersonagem = new DTOCriarPersonagem();
-            return PartialView(dtoCriarPersonagem);
-        }
-        [HttpPost]
-        [Route("CriarPersonagem")]
-        public IActionResult CriarPersonagem(DTOCriarPersonagem model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Painel");
-            }
-
-            var Nome = model.Nome.Trim();
-
-            if (players.Any(x=>x.Name.ToLower() == Nome.ToLower()))
-            {
-                TempData["ResultadoMudancaoSenha"] = "Já existe um player com esse nome. Tente outro nome.";
-                return RedirectToAction("Painel");
-            }
-
-            var newPlayer = PlayerFactory.NewPlayer(HttpContext.Session.GetString(SessionAccount),
-                                                    Nome,
-                                                    ((int)model.Voc),
-                                                    ((int)model.Sexo).ToString());
-            base.CriarPlayer(newPlayer);
-            return RedirectToAction("Painel");
         }
     }
 }

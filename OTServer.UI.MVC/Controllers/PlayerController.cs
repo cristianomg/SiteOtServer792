@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OTServer.Domain.Factory;
 using OTServer.Domain.Models.Player;
 using OTServer.UI.MVC.Models;
 
@@ -132,6 +134,38 @@ namespace OTServer.UI.MVC.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("CriarPersonagem")]
+        public IActionResult CriarPersonagem()
+        {
+            var dtoCriarPersonagem = new DTOCriarPersonagem();
+            return PartialView(dtoCriarPersonagem);
+        }
+        [HttpPost]
+        [Route("CriarPersonagem")]
+        public IActionResult CriarPersonagem(DTOCriarPersonagem model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Painel");
+            }
 
+            var nome = model.Nome.Trim();
+
+            if (players.Any(x => x.Name.ToLower() == nome.ToLower()))
+            {
+                TempData["ResultadoMudancaoSenha"] = "Já existe um player com esse nome. Tente outro nome.";
+                return RedirectToAction("Painel");
+            }
+
+            var account = HttpContext.Session.GetString(SessionAccount);
+            var voc = (int)model.Voc;
+            var sexo = ((int)model.Sexo).ToString();
+
+            var newPlayer = PlayerFactory.GetNewPlayer(PlayerType.basicPlayer, account, nome, voc, sexo);
+
+            base.CriarPlayer(newPlayer);
+            return RedirectToAction("Painel", "Account");
+        }
     }
 }

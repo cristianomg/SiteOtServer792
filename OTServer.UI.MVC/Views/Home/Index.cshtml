@@ -5,81 +5,96 @@
 
 }
 
-<div class="container">
-    @{
-        var erro = TempData["ErroMessage"] as String;
-        if (erro != null)
-        {
-            <div class="alert alert-primary" role="alert">
-                @erro
-            </div>
-        }
-    }
-
-    <div class="panel panel-primary">
-        <div class="panel-heading bg-primary col-sm-12  text-white p-2 pd-2 ">Noticias: </div>
-        <div class="panel-body">
-            <dl class="row p-3">
-                <div class="pd-5 text-justify m-2">
-                    <h3><strong>╚═► <span style="color: green;"> Informações do Servidor.</h3></strong></strong></strong></font><p>
-                        <h3><span style="color: #ff6a00;"> • Frag's •</font></h3></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Frag = 1 HORA // Red Skull = 11 Frags  // Ban = 13 Frags</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • Party System •</font></h3></font></marquee>
-                            <span style="color: white;">
-                                Personagens da mesma party dividem um percentual de exp e tem o modo pvp (OFF) entre eles.</strong></font>
-                                </br>
-                                <h3><span style="color: #ff6a00;"> • Sistemas de Atributos •</font></h3></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Itens com alguns atributos como: [Inc.Phys], [Inc.Dodge], [Inc.Magic], [Abs.All], [Weapon.DMG], [Reg.Mana], [Reg.Life], [Inc.Critical] e muito mais...</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • Bosses •</font></h3></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Todos os bosses e mini bosses agora possui uma caveira, [Black Skull = Boss Poderoso], [Red Skull = Boss Forte], [White Skull = Boss Mediano] e [Yellow Skull = Boss Fraco].</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • Anoriel System •</font></h3></strong></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Npc que pode lhe tornar um Deus no level 400, pedindo uma quantidade de Demonic Essences, também podendo lhe tornar um Deus Resetado, assim pedindo que esteja level 500+ e uma quantidade de dinheiro.</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • Forja System •</font></h3></strong></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Você pode agora refinar seus itens para +1,+2 ou +3, basta ter em mãos as (blessed's orbs +1, +2 ou +3), o sistema consiste em lhe dar mais atributos em seus itens, assim deixando o seu personagem cada vez mais forte. [OBS: Não é 100% de chance da forja ter sucesso, caso falhe você perderá sua blessed orb].</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • Cooldown • </font></h3></strong></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Todas as magias de todas as vocações, possuem um tempo de cooldown para manter o servidor balanceado.</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • GH System •</font></h3></strong></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Agora as GH's possuem TRAINERS, DEPOTS e até NPCS.</strong></font>
-                            <br />
-                            <h3><span style="color: #ff6a00;"> • Mana/Life e Skill's System •</font></h3></strong></font></marquee>
-                    <p>
-                        <span style="color: white;">
-                            Todos os skills máximos que podem ser atingidos são 250 e toda MANA/LIFE que podem ser atingidas são 65000.</strong></font>
-                            <br />
-
-                    </p>
-                        <h3><strong> ╚═► <span style="color: green;"><strong> Comandos adicionados.</h3></strong></font></strong>
-                    </p>
-                    <br />
-                    <h4><span style="color: white;">(!status) / (!online) / (!frags) / (!dsp) / (!forja) / (!pvp) / (!spells). </font></h4>
-                    <br />
-                    <p>
+    <div class="container">
+        @{
+            var erro = TempData["ErroMessage"] as String;
+            if (erro != null)
+            {
+                <div class="alert alert-primary" role="alert">
+                    @erro
                 </div>
+            }
+        }
 
-            </dl>
+        <div class="panel panel-primary">
+            <div class="panel-heading bg-primary col-sm-12  text-white p-2 pd-2 text-center ">Noticias: </div>
+            <div class="panel-body">
+                <br />
+                <h5>
+                    • FRAGS •
+                </h5>
+                <p>
+                    RED SKULL = 6 BAN = 7
+                </p>
+                <h5>
+                    • VOCAÇÕES •
+                </h5>
+                <p>
+                    Agora, Valan e Deus são no mesmo PERSONAGEM.
+                </p>
+                <h5>
+                    • PORCENTAGEM •
+                </h5>
+                <p>
+                    Adaptamos nosso servidor para life e mana como porcentagem, mais prático nas war e ajuda quando a life e mana tem mais de uma camada.
+                </p>
+                <h5>• !STATUS •</h5>
+                <p>
+                    Agora vocês podem consultar sua life e mana pelo comando !status.
+                </p>
+                <h5>
+                    • GUILD PROTECT •
+                </h5>
+                <p>
+                    Personagens da mesma Guild não podem se atacar.
+                </p>
+                <h5>
+                    • PVP ATTACK •
+                </h5>
+                <p>
+                    Semi-Deus e Deuses podem matar personagens No-Valan porém não influencia no Rank Frags mas ganha o injust normalmente.
+                </p>
+                <h5>
+                    • RUBY COINS •
+                </h5>
+                <p>
+                    Agora nossos npc's reconhecem Ruby Coins como moeda, não é mais preciso ficar trocando para comprar nada.
+                </p>
+                <h5>
+                    • MAGIC LEVEL MÁXIMO •
+                </h5>
+                <p>
+                    Warrior 40, Rogue 150, Warlock e Priest 250.
+                </p>
+                <h5>
+                    • DELAY •
+                </h5>
+                <p>
+                    Delay de 1 segundo para puxar items, porém não influencia em runas e magias.
+                </p>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading bg-primary col-sm-12  text-white p-2 pd-2  text-center">Novidades: </div>
+            <div class="panel-body">
+                <br />
+
+                <p>- Sistema de Forja, agora você pode refinar alguns itens +3.</p>
+                <p>- Atributos adicionais nas magias caso esteja com um set +3 equipado.</p>
+                <p>- Porcentagem de life e mana.</p>
+                <p>- Comando !status.</p>
+                <p>- Novas áreas com novas quests.</p>
+                <p>- Novos monstros.</p>
+                <p>- Nova runa Destroy Field.</p>
+                <p>- Nova runa Paralyze.</p>
+                <p>- Novo sistema de Reset.</p>
+                <p>- Novas hunts.</p>
+                <p>- Weapon System, agora você pode mudar o efeito das armas deuses.</p>
+                <p>- Guild System.</p>
+                <p>- E outras novidades que você só consegue ver jogando.</p>
+            </div>
         </div>
     </div>
-</div>
 @section scripts{
     <script>
         $(document).ready(
