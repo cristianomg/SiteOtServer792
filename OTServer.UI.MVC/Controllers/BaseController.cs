@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using OTServer.Domain.Models.Account;
 using OTServer.Domain.Models.Guild;
 using OTServer.Domain.Models.Player;
+using OTServer.Domain.Strategy;
 
 namespace OTServer.UI.MVC.Controllers
 {
@@ -26,6 +27,10 @@ namespace OTServer.UI.MVC.Controllers
         private readonly string diretorioGuilds;
         private readonly string diretorioPlayersOnline;
 
+        protected const string SessionAccount = "_Account";
+        protected const string SessionPassoword = "_Pass";
+        protected const string SessionIsLoginValid = "_IsLoginValid";
+
         public BaseController(IMapper mapper)
         {
             var config = new ConfigurationBuilder()
@@ -37,68 +42,10 @@ namespace OTServer.UI.MVC.Controllers
             diretorioGuilds = config.GetConnectionString("CaminhoGuilds");
             diretorioPlayersOnline = config.GetConnectionString("CaminhoOnlineList");
 
-            players = LerArquivosPlayer(this.diretorioPlayer);
-            accounts = LerArquivosAccount(this.diretorioAccounts);
-            guilds = LerArquivosGuilds(this.diretorioGuilds);
+            players = new PlayerReader().ReaderFiles(this.diretorioPlayer);
+            accounts = new AccountReader().ReaderFiles(this.diretorioAccounts);
+            guilds = new GuildReader().ReaderFiles(this.diretorioGuilds).FirstOrDefault();
             playersOnline = CarregarPlayersOnline(this.diretorioPlayersOnline);
-        }
-
-        private List<Player> LerArquivosPlayer(string diretorio)
-        {
-            string[] arquivos = Directory.GetFiles(diretorio);
-            var serializer = new XmlSerializer(typeof(Player));
-            var player = new Player();
-            List<Player> players = new List<Player>();
-            int count = 1;
-            foreach (var item in arquivos)
-            {
-                var localArquivo = item;
-                try
-                {
-                    using (var textReader = new StreamReader(localArquivo))
-                    {
-                        player = (Player)serializer.Deserialize(textReader);
-                        player.Id = count;
-                        if (player.Deaths == null)
-                            player.Deaths = new Deaths();
-                    }
-                    players.Add(player);
-                    count++;
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(localArquivo);
-                }
-            }
-            return players;
-        }
-
-        private List<Account> LerArquivosAccount(string diretorio)
-        {
-            string[] arquivos = Directory.GetFiles(diretorio);
-            var serializer = new XmlSerializer(typeof(Account));
-            var account = new Account();
-            List<Account> accounts = new List<Account>();
-            int count = 1;
-            foreach (var item in arquivos)
-            {
-                var localArquivo = item;
-                try
-                {
-                    using (var textReader = new StreamReader(localArquivo))
-                    {
-                        account = (Account)serializer.Deserialize(textReader);
-                        account.AccountNumber = item.Split("\\").Last().Split(".").First();
-                    }
-                    accounts.Add(account);
-                    count++;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(localArquivo);
-                }
-            }
-            return accounts;
         }
         private List<Player> CarregarPlayersOnline(string diretorio)
         {
@@ -120,22 +67,6 @@ namespace OTServer.UI.MVC.Controllers
             {
             }
             return listaPlayersOnline;
-        }
-        private Guilds LerArquivosGuilds(string diretorio)
-        {
-            var serializer = new XmlSerializer(typeof(Guilds));
-            var guilds = new Guilds();
-                try
-                {
-                    using(var textReader = new StreamReader(diretorio))
-                    {
-                        guilds = (Guilds)serializer.Deserialize(textReader);
-                    }
-                }
-                catch (Exception)
-                {
-                }
-            return guilds;
         }
         protected bool AtualizarAccount(Account account)
         {
