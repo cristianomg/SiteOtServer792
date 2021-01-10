@@ -37,7 +37,7 @@ namespace OTServer.UI.MVC.Controllers
                 .ThenByDescending(x => x.Exp)
                 .ThenBy(x => x.Name);
 
-            var ranking = deuses.Union(semiDeuses).Union(noValan).Skip(page * 10).Take(10);
+            var ranking = deuses.Union(semiDeuses).Union(noValan).Where(x=>x.Name != "Account Manager").Skip(page * 10).Take(10);
             var viewModel = _mapper.Map<List<DTORankingLevel>>(ranking);
             return View(viewModel);
         }
@@ -47,7 +47,7 @@ namespace OTServer.UI.MVC.Controllers
         {
             ViewBag.page = page > 0 ? page : 0;
             var r = (from player in players
-                     where player.Access == 0
+                     where player.Access == 0 && player.Name != "Account Manager"
                      select new DTORankFrags
                      {
                          Id = player.Id,
@@ -69,7 +69,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.page = page > 0 ? page : 0;
 
             var result = (from player in players
-                          where player.Access == 0
+                          where player.Access == 0 && player.Name != "Account Manager"
                           select new DTORankMagic
                           {
                               Id = player.Id,
@@ -114,7 +114,7 @@ namespace OTServer.UI.MVC.Controllers
             ViewBag.skillId = skill;
 
             var result = (from player in players
-                          where player.Access == 0
+                          where player.Access == 0 && player.Name != "Account Manager"
                           select new DTORankSkill
                           {
                               Id = player.Id,

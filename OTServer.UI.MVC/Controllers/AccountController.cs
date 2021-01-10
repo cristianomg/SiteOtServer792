@@ -23,14 +23,14 @@ namespace OTServer.UI.MVC.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        [Route("Login")]
+        [Route("Login/3213312asdasdas´dopas")]
         public IActionResult Login()
         {
             DTOAccountLogin model = new DTOAccountLogin();
             return PartialView(model);
         }
         [HttpPost]
-        [Route("Login")]
+        [Route("Login/´psodaspdoaspdoapda")]
         [ValidateAntiForgeryToken]
         public IActionResult Login(DTOAccountLogin model) 
         {
@@ -46,7 +46,7 @@ namespace OTServer.UI.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
-        [Route("Painel")]
+        [Route("Painel/daspdoaspdoaspdas")]
         public IActionResult Painel()
         {
             try
@@ -121,14 +121,14 @@ namespace OTServer.UI.MVC.Controllers
 
         }
         [HttpGet]
-        [Route("Registrar")]
+        [Route("Registrar/dsadpóasdpsaodpasodpas")]
         public IActionResult RegistrarConta()
         {
             var accountDTO = new DTOCriarAccount();
             return View(accountDTO);
         }
         [HttpPost]
-        [Route("Registrar")]
+        [Route("Registrar/pdsoadpasodpasdosapdosa")]
         [ValidateAntiForgeryToken]
         public IActionResult RegistrarConta(DTOCriarAccount model)
         {
@@ -170,14 +170,14 @@ namespace OTServer.UI.MVC.Controllers
             return View();
         }
         [HttpGet]
-        [Route("RecuperarSenha")]
+        [Route("RecuperarSenha/daspdoadpsaodpas")]
         public IActionResult RecuperarSenha()
         {
             var dtoRecuperacao = new DTORecuperarSenha();
             return View(dtoRecuperacao);
         }
         [HttpPost]
-        [Route("RecuperarSenha")]
+        [Route("RecuperarSenha/dapsodsapdosapdoaspdas")]
         [ValidateAntiForgeryToken]
         public IActionResult RecuperarSenha(DTORecuperarSenha model)
         {
@@ -202,14 +202,14 @@ namespace OTServer.UI.MVC.Controllers
         }
 
         [HttpGet]
-        [Route("MudarSenha")]
+        [Route("MudarSenha/dasdposadpasodpasodaspdoas")]
         public IActionResult MudarSenha()
         {
             var dtoMudarSenha = new DTOMudarSenha();
             return PartialView(dtoMudarSenha);
         }
         [HttpPost]
-        [Route("MudarSenha")]
+        [Route("MudarSenha/pdoaspdoadpaoda")]
         [ValidateAntiForgeryToken]
         public IActionResult MudarSenha(DTOMudarSenha model)
         {
@@ -253,14 +253,14 @@ namespace OTServer.UI.MVC.Controllers
 
         }
         [HttpGet]
-        [Route("DeletarPersonagem")]
+        [Route("DeletarPersonagem/dpasodsapodsapdoas")]
         public IActionResult DeletarPersonagem()
         {
             var dtoDeletarPersonagem = new DTODeletarPersonagem();
             return PartialView(dtoDeletarPersonagem);
         }
         [HttpPost]
-        [Route("DeletarPersonagem")]
+        [Route("DeletarPersonagem/daopdosadpaodpaoda")]
         [ValidateAntiForgeryToken]
         public IActionResult DeletarPersonagem(DTODeletarPersonagem model)
         {
@@ -270,14 +270,14 @@ namespace OTServer.UI.MVC.Controllers
             return RedirectToAction("Painel");
         }
         [HttpGet]
-        [Route("CriarPersonagem")]
+        [Route("CriarPersonagem/dapdoapdosadpoada")]
         public IActionResult CriarPersonagem()
         {
             var dtoCriarPersonagem = new DTOCriarPersonagem();
             return PartialView(dtoCriarPersonagem);
         }
         [HttpPost]
-        [Route("CriarPersonagem")]
+        [Route("CriarPersonagem/doasdpsaodpsaodsapdosa")]
         public IActionResult CriarPersonagem(DTOCriarPersonagem model)
         {
             if (!ModelState.IsValid)
